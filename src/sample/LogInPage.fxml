@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="bgloginimage" stylesheets="@bglogin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LogInPage">
+   <right>
+      <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#goBackButtonClicked" text="Go Back" BorderPane.alignment="TOP_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </BorderPane.margin>
+      </Button>
+   </right>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="471.0" prefWidth="550.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="38.0" prefWidth="262.0" text="Provide your Information">
+               <font>
+                  <Font name="System Bold Italic" size="21.0" />
+               </font>
+            </Label>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="CustomerName" onAction="#setCustomerName" prefHeight="40.0" prefWidth="400.0" promptText="Customer Name">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="CustomerMail" onAction="#setCustomerMail" prefHeight="40.0" prefWidth="400.0" promptText="Email Address">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="90.0" prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="CustomerPhone" onAction="#setCustomerPhone" prefHeight="40.0" prefWidth="400.0" promptText="Phone No">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="90.0" prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="CustomerAddress" onAction="#setCustomerAddress" prefHeight="40.0" prefWidth="400.0" promptText="Address Details">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <Button fx:id="OrderButton" mnemonicParsing="false" onAction="#OrderButtonClicked" prefHeight="47.0" prefWidth="200.0" text="Order Product">
+               <font>
+                  <Font name="Times New Roman" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="265.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="Labelcheck" prefHeight="43.0" prefWidth="468.0" />
+            <TextArea fx:id="CommentBox" prefHeight="120.0" prefWidth="400.0" promptText="Your feedback is highly appreciatable...">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextArea>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="40.0" left="50.0" right="40.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" right="20.0" top="40.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

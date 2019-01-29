@@ -1,0 +1,4 @@
+.bgloginimage{
+    -fx-background-image: url("/sample/bgowner.jpg");
+    -fx-background-size: 100% 100%;
+}
