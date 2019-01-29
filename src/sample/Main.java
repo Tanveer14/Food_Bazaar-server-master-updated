@@ -73,6 +73,7 @@ class WorkerThread implements Runnable{
 
                     }
                     else {
+
                         FileOutputStream fo=new FileOutputStream(file,true);
                         ObjectOutputStream Oo=new ObjectOutputStream(fo);
                         customer= (Customer) ob;
