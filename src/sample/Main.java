@@ -92,7 +92,7 @@ class WorkerThread implements Runnable{
 
                     }
                     else if(ob.getClass().getName().equals("sample.Customer")){
-                        FileOutputStream fo=new FileOutputStream(file);
+                        FileOutputStream fo=new FileOutputStream(file,true);
                         ObjectOutputStream Oo=new ObjectOutputStream(fo);
                         FileInputStream fin=new FileInputStream(file);
                         ObjectInputStream oin=new ObjectInputStream(fin);
