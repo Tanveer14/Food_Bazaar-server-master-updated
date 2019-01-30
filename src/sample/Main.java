@@ -22,6 +22,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("ShopTypesView.fxml"));
         primaryStage.setTitle("Food Bazaar");
+
         ss = new ServerSocket(port);
        // primaryStage.setScene(new Scene(root, 800, 600));
         //primaryStage.show();
@@ -59,29 +60,50 @@ class WorkerThread implements Runnable{
         String type;
         Customer customer;
         File file=new File("orderInfo.txt");
+        ArrayList<Customer> CustomerArrayList=new ArrayList<>();
         try {
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             Object ob=is.readObject();
 
+
                     if(ob.getClass().getName().equals("java.lang.String"))
                     {
                         type=(String)ob;
-                        System.out.println(type);
-                        ArrayList<product> senttoClient=Common.setSceneforNetworking(type);
-                        os.writeObject(senttoClient);
+                        if(type.equals("Show Orders"))
+                        {
+                            FileInputStream fi=new FileInputStream(file);
+                            ObjectInputStream oi=new ObjectInputStream(fi);
+                             CustomerArrayList= (ArrayList<Customer>) oi.readObject();
+                            for (Customer c:CustomerArrayList
+                                 ) {
+                                System.out.println(c);
+                            }
+                            oi.close();
+                            os.writeObject(CustomerArrayList);
+
+                        }
+                        else {
+
+                            System.out.println(type);
+                            ArrayList<product> senttoClient=Common.setSceneforNetworking(type);
+                            os.writeObject(senttoClient);
+                        }
 
                     }
-                    else {
-
-                        FileOutputStream fo=new FileOutputStream(file,true);
+                    else if(ob.getClass().getName().equals("sample.Customer")){
+                        FileOutputStream fo=new FileOutputStream(file);
                         ObjectOutputStream Oo=new ObjectOutputStream(fo);
-                        customer= (Customer) ob;
-                        System.out.println(customer);
-                        Oo.writeObject(customer);
+                        FileInputStream fin=new FileInputStream(file);
+                        ObjectInputStream oin=new ObjectInputStream(fin);
+                        CustomerArrayList.add((Customer) ob);
+                        oin.close();
+                       System.out.println();
+                        Oo.writeObject(CustomerArrayList);
                         Oo.close();
 
                     }
+
                    //
 
 
