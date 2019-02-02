@@ -119,12 +119,14 @@ public class Common {
         return temporary;
     }
 
-    public static ArrayList<String> OwnerFile(ArrayList<String> ar, File file)
+    public static ArrayList<String> OwnerFile( File file)
     {
+        ArrayList<String> ar=new ArrayList<>();
         try {
             FileInputStream fi=new FileInputStream(file);
             ObjectInputStream oi=new ObjectInputStream(fi);
             ar= (ArrayList<String>) oi.readObject();
+            System.out.println(ar);
 
 
         } catch (FileNotFoundException e) {
@@ -148,20 +150,20 @@ public class Common {
         return choice;
     }
 
-    public static void TreeViewSelect(TreeView FoodTree)
+   /* public static void TreeViewSelect(TreeView FoodTree)
     {
-       /* if(FoodTree.getSelectionModel().getSelectedItem()=="Vegetables") FoodTree.setOnMouseClicked(e->{
+        if(FoodTree.getSelectionModel().getSelectedItem()=="Vegetables") FoodTree.setOnMouseClicked(e->{
             Parent newsceneparent= FXMLLoader.load(getClass().getResource("LogInPage.fxml"));
             ButtonClicked(e,);
         });
             if(FoodTree.getSelectionModel().getSelectedItem()=="Fish N Meat")
                 if(FoodTree.getSelectionModel().getSelectedItem()=="Fruits")
-                    if(FoodTree.getSelectionModel().getSelectedItem()=="Staples")*/
+                    if(FoodTree.getSelectionModel().getSelectedItem()=="Staples")
 
-    }
+    }*/
 
 
-    public static void AddToTable(Label label,Label TypeLabel,Label totalPriceLabel, ComboBox unit, TableView FoodTable, ObservableList<product> productList)
+    /*public static void AddToTable(Label label,Label TypeLabel,Label totalPriceLabel, ComboBox unit, TableView FoodTable, ObservableList<product> productList)
     {
 
 
@@ -183,9 +185,6 @@ public class Common {
         totalPriceLabel.setText(String.valueOf(CommonTypeViewController.totalPrice));
         TableViewControl.addItem(FoodTable,product,productList);
         unit.getSelectionModel().clearSelection();
-    }
-
-
-
+    }*/
 
 }

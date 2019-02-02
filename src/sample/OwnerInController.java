@@ -21,16 +21,16 @@ public class OwnerInController implements Initializable {
     @FXML public ComboBox<String> type,unit_type;
     @FXML public ComboBox<String> name;
     @FXML public TextField quantity,unit_price;
-    public Button updateButton,nextpagebutton;
+    public Button updateButton,OrderCheckButton;
     public Label FootLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
 
 
-    @FXML public void nextpagebuttonClicked(ActionEvent event) throws Exception{
-        Parent shoppage= FXMLLoader.load(getClass().getResource("ShopTypesView.fxml"));
-        Common.ButtonClicked(event,shoppage);
-    }
+   /* @FXML public void nextpagebuttonClicked(ActionEvent event) throws Exception{
+        //Parent shoppage= FXMLLoader.load(getClass().getResource("ShopTypesView.fxml"));
+        //Common.ButtonClicked(event,shoppage);
+    }*/
 
    /* public void MoreItemButtonClicked(){
         try{
@@ -92,7 +92,7 @@ public class OwnerInController implements Initializable {
 
     }
 
-    public void updateButtonClicked() throws IOException {
+    public void updateButtonClicked()  {
         try{
             String s=type.getSelectionModel().getSelectedItem();
             String t=name.getSelectionModel().getSelectedItem();
@@ -120,12 +120,12 @@ public class OwnerInController implements Initializable {
         }catch(Exception ex){
             FootLabel.setText("You've left an option empty!");
         }
+    }
 
 
-
-
-
-
+    public void OrderCheckButtonClicked(ActionEvent e) throws Exception{
+        Parent page= FXMLLoader.load(getClass().getResource("OrderView.fxml"));
+        Common.ButtonClicked(e,page);
     }
 
 
@@ -133,14 +133,15 @@ public class OwnerInController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         ArrayList<String> types = new ArrayList<>();
-        types=Common.OwnerFile(types, new File("type list"));
+        types=Common.OwnerFile(new File("type list"));
         type.getItems().addAll(types);
 
         ArrayList<String> unit_types=new ArrayList<>();
-        unit_types=Common.OwnerFile(unit_types,new File("Unit type list"));
+        unit_types=Common.OwnerFile(new File("Unit type list"));
         unit_type.getItems().addAll(unit_types);
 
-
+        System.out.println("b");
+        System.out.println("b");
 
         // ArrayList<product> MF=new ArrayList<>();
         /*MF.add(new product("Onion","Vegetable"));

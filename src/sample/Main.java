@@ -20,12 +20,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ShopTypesView.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
         primaryStage.setTitle("Food Bazaar");
+         primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.show();*/
 
-        ss = new ServerSocket(port);
-       // primaryStage.setScene(new Scene(root, 800, 600));
-        //primaryStage.show();
+         ss = new ServerSocket(port);
         while(true) {
             try {
 
@@ -59,13 +59,13 @@ class WorkerThread implements Runnable{
     public void run(){
         String type;
         Customer customer;
-        File file=new File("orderInfo.txt");
+
         ArrayList<Customer> CustomerArrayList=new ArrayList<>();
         try {
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             Object ob=is.readObject();
-
+            File file=new File("orderInfo.txt");
 
                     if(ob.getClass().getName().equals("java.lang.String"))
                     {
@@ -82,6 +82,15 @@ class WorkerThread implements Runnable{
                             oi.close();
                             os.writeObject(CustomerArrayList);
 
+                        }
+                        if(type.equals("type list")){
+                            ArrayList<String> types=Common.OwnerFile(new File("type list"));
+                            os.writeObject(types);
+
+                        }
+                        else if(type.equals("Unit type list")){
+                            ArrayList<String> types=Common.OwnerFile(new File("Unit type list"));
+                            os.writeObject(types);
                         }
                         else {
 
@@ -103,6 +112,12 @@ class WorkerThread implements Runnable{
                         Oo.close();
 
                     }
+                    else if(ob.getClass().getName().equals("java.util.ArrayList")){
+                        ArrayList<product> pro=(ArrayList<product>)ob;
+                        String s=pro.get(0).getType();
+                        Common.fileupdate(new File(s.toLowerCase() + ".txt"),pro);
+                    }
+
 
                    //
 
