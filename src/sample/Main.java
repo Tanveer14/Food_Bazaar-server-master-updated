@@ -175,6 +175,9 @@ class WorkerThread implements Runnable{
                                         Double Unit=mapAvailableItems.get(temp.get(j).getName());
                                         int unit=Unit.intValue();
                                         temp.get(j).exclude_available_units(unit);
+                                        if(temp.get(j).getAvailable_units()==0){
+                                            temp.remove(j);
+                                        }
                                         break;
                                     }
                                 }
