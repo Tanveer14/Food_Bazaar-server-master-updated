@@ -2,7 +2,6 @@ package sample;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Customer implements Serializable {
     private String name;
@@ -86,6 +85,23 @@ public class Customer implements Serializable {
 
     public void setProductList(ArrayList<product> productList) {
         ProductList = productList;
+    }
+
+    public String toMessage()
+    {
+        String temp=new String();
+        temp = "Customer Id:\t" + id + "\n";
+        for (product p : ProductList
+        ) {
+            temp = temp + "\n" + p.getName() + "\t" + p.getUnit() + " " + p.getUnit_type() + "\t" + p.getPrice() + "taka";
+        }
+        temp = temp + "\n\nTotal Price:" + "\t" +TotalPrice + "taka";
+
+        temp += "\n\n\n";
+        temp = temp + "Customer Details:\n******************" +
+                "\nName:\t" + name + "\nMail Address:\t" + getMail()
+                + "\nContact No:\t" + contactNo + "\nAddress Details:\t" +address;
+        return temp;
     }
 
     @Override
