@@ -61,7 +61,7 @@ class WorkerThread implements Runnable{
         String type;
         Customer customer;
 
-        ArrayList<Customer> CustomerArrayList=new ArrayList<>();
+
         try {
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
@@ -71,8 +71,10 @@ class WorkerThread implements Runnable{
                     if(ob.getClass().getName().equals("java.lang.String"))
                     {
                         type=(String)ob;
+                        System.out.println(type);
                         if(type.equals("Show Orders"))
                         {
+                            ArrayList<Customer> CustomerArrayList=new ArrayList<>();
                             FileInputStream fi=new FileInputStream(file);
                             ObjectInputStream oi=new ObjectInputStream(fi);
                             while (true)
@@ -119,14 +121,13 @@ class WorkerThread implements Runnable{
 
                     }
                     else if(ob.getClass().getName().equals("sample.Customer")){
-
                         File file2=new File("orderInfo.txt");
-                        FileOutputStream fo=new FileOutputStream(file2);
-                        ObjectOutputStream Oo=new ObjectOutputStream(fo);
+                        ArrayList<Customer> CustomerArrayList=new ArrayList<>();
                         FileInputStream fin=new FileInputStream(file2);
                         ObjectInputStream oin=new ObjectInputStream(fin);
 
                         Customer customer1=(Customer) ob;
+                        System.out.println(customer1);
                         //CustomerArrayList= (ArrayList<Customer>) oin.readObject();
 
                         ///problem is the file is got
@@ -134,14 +135,13 @@ class WorkerThread implements Runnable{
                         {
                             try {
                                 Customer temp= (Customer) oin.readObject();
+                                System.out.println(temp);
                                 CustomerArrayList.add(temp);
                             }catch (EOFException e){
                                 System.out.println("file ended");
                                 break;
                             }
                         }
-
-
 
                         System.out.println("Customer is  "+customer1);
                         CustomerArrayList.add(customer1);
@@ -153,9 +153,10 @@ class WorkerThread implements Runnable{
 
 ////here the total customerlist will be added to the file
                         //it will be helpfull if somehow the file can be made blank
+                        FileOutputStream fo=new FileOutputStream(file2);
+                        ObjectOutputStream Oo=new ObjectOutputStream(fo);
 
-                        for (Customer c:CustomerArrayList
-                             ) {
+                        for (Customer c:CustomerArrayList) {
                             Oo.writeObject(c);
                         }
                         oin.close();
