@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static sun.plugin2.main.client.LiveConnectSupport.shutdown;
 
@@ -60,7 +61,7 @@ class WorkerThread implements Runnable{
         String type;
         Customer customer;
 
-        ArrayList<Customer> CustomerArrayList=new ArrayList<>();
+
         try {
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
@@ -73,18 +74,24 @@ class WorkerThread implements Runnable{
                         System.out.println(type);
                         if(type.equals("Show Orders"))
                         {
+                            ArrayList<Customer> CustomerArrayList=new ArrayList<>();
                             FileInputStream fi=new FileInputStream(file);
                             ObjectInputStream oi=new ObjectInputStream(fi);
-                             CustomerArrayList= (ArrayList<Customer>) oi.readObject();
-                            for (Customer c:CustomerArrayList
-                                 ) {
-                                System.out.println(c);
+                            while (true)
+                            {
+                                try {
+                                    Customer temp= (Customer) oi.readObject();
+                                    CustomerArrayList.add(temp);
+                                }catch (EOFException e){
+                                    break;
+                                }
                             }
+                            System.out.println(CustomerArrayList);
                             oi.close();
                             os.writeObject(CustomerArrayList);
 
                         }
-                        if(type.equals("type list")){
+                        else if(type.equals("type list")){
                             ArrayList<String> types=Common.OwnerFile(new File("type list"));
                             os.writeObject(types);
 
@@ -92,6 +99,18 @@ class WorkerThread implements Runnable{
                         else if(type.equals("Unit type list")){
                             ArrayList<String> types=Common.OwnerFile(new File("Unit type list"));
                             os.writeObject(types);
+                        }
+                        else if(type.equals("Customer Count")){
+                            File file1=new File("Idcount.txt");
+                            try {
+
+                                Scanner scanner=new Scanner(file1);
+                                int customercount=scanner.nextInt();
+                                scanner.close();
+                                os.writeObject(customercount);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                         else {
 
@@ -102,15 +121,53 @@ class WorkerThread implements Runnable{
 
                     }
                     else if(ob.getClass().getName().equals("sample.Customer")){
-                        FileOutputStream fo=new FileOutputStream(file,true);
-                        ObjectOutputStream Oo=new ObjectOutputStream(fo);
-                        FileInputStream fin=new FileInputStream(file);
+                        File file2=new File("orderInfo.txt");
+                        ArrayList<Customer> CustomerArrayList=new ArrayList<>();
+                        FileInputStream fin=new FileInputStream(file2);
                         ObjectInputStream oin=new ObjectInputStream(fin);
-                        CustomerArrayList.add((Customer) ob);
+
+                        Customer customer1=(Customer) ob;
+                        System.out.println(customer1);
+                        //CustomerArrayList= (ArrayList<Customer>) oin.readObject();
+
+                        ///problem is the file is got
+                       while (true)
+                        {
+                            try {
+                                Customer temp= (Customer) oin.readObject();
+                                System.out.println(temp);
+                                CustomerArrayList.add(temp);
+                            }catch (EOFException e){
+                                System.out.println("file ended");
+                                break;
+                            }
+                        }
+
+                        System.out.println("Customer is  "+customer1);
+                        CustomerArrayList.add(customer1);
+                        System.out.println();
+                        System.out.println("it is    "+CustomerArrayList);
+                        System.out.println();
                         oin.close();
-                       System.out.println();
-                        Oo.writeObject(CustomerArrayList);
+
+
+////here the total customerlist will be added to the file
+                        //it will be helpfull if somehow the file can be made blank
+                        FileOutputStream fo=new FileOutputStream(file2);
+                        ObjectOutputStream Oo=new ObjectOutputStream(fo);
+
+                        for (Customer c:CustomerArrayList) {
+                            Oo.writeObject(c);
+                        }
+                        oin.close();
                         Oo.close();
+
+                        //when the customer confirms order, then  the id increases by 1 and writes into file
+                        int customercount=customer1.getId()+1;
+                        FileWriter fw=new FileWriter("Idcount.txt");
+                        //fw.write(String.valueOf(customercount));
+                        fw.write(String.valueOf(customercount));
+                        fw.close();
 
                     }
                     else if(ob.getClass().getName().equals("java.util.ArrayList")){
