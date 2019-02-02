@@ -33,7 +33,6 @@ public class Main extends Application {
             try {
 
                 Socket connection = ss.accept();
-                System.out.println("accepted");
                 WorkerThread wt = new WorkerThread(connection);
                 Thread t = new Thread(wt);
                 t.start();
@@ -140,12 +139,10 @@ class WorkerThread implements Runnable{
                                 System.out.println(temp);
                                 CustomerArrayList.add(temp);
                             }catch (EOFException e){
-                                System.out.println("file ended");
                                 break;
                             }
                         }
 
-                        System.out.println("Customer is  "+customer1);
                         CustomerArrayList.add(customer1);
                         System.out.println();
                         System.out.println("it is    "+CustomerArrayList);
@@ -175,17 +172,13 @@ class WorkerThread implements Runnable{
                             for(int i=0;i<ee.getValue().size();i++){
                                 for(int j=0;j<temp.size();j++){
                                     if(ee.getValue().get(i).equals(temp.get(j).getName())){
-                                        System.out.println(temp.get(j));
-                                        System.out.println(temp.get(j).getName()+" "+mapAvailableItems.get(temp.get(j).getName()));
                                         Double Unit=mapAvailableItems.get(temp.get(j).getName());
                                         int unit=Unit.intValue();
                                         temp.get(j).exclude_available_units(unit);
-                                        System.out.println(temp.get(j));
                                         break;
                                     }
                                 }
                             }
-                            System.out.println(ee.getKey().toLowerCase());
                             Common.fileupdate(new File(ee.getKey().toLowerCase() + ".txt"),temp);
                         }
 
