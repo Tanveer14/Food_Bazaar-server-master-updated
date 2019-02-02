@@ -126,7 +126,6 @@ public class Common {
             FileInputStream fi=new FileInputStream(file);
             ObjectInputStream oi=new ObjectInputStream(fi);
             ar= (ArrayList<String>) oi.readObject();
-            System.out.println(ar);
 
 
         } catch (FileNotFoundException e) {

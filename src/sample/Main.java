@@ -70,6 +70,7 @@ class WorkerThread implements Runnable{
                     if(ob.getClass().getName().equals("java.lang.String"))
                     {
                         type=(String)ob;
+                        System.out.println(type);
                         if(type.equals("Show Orders"))
                         {
                             FileInputStream fi=new FileInputStream(file);
