@@ -22,7 +22,7 @@ public class OwnerInController implements Initializable {
     @FXML public ComboBox<String> name;
     @FXML public TextField quantity,unit_price;
     public Button updateButton,OrderCheckButton;
-    public Label FootLabel;
+    public Label FootLabel,ItemshowLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
 
@@ -88,8 +88,20 @@ public class OwnerInController implements Initializable {
             System.out.println(ex);
         }
         name.setDisable(false);
+        ItemshowLabel.setText("");
 
 
+    }
+
+    public void ItemTypeSelected() throws Exception{
+        String s=name.getSelectionModel().getSelectedItem();
+        for(product i:item){
+            if(i.getName().equals(s)){
+                String text="Product name: "+s+"\nAvailable Units: "+i.getAvailable_units()+"\nPrice: "+i.getPrice()+" tk per "+i.getUnit_type();
+                ItemshowLabel.setText(text);
+                break;
+            }
+        }
     }
 
     public void updateButtonClicked()  {
@@ -117,6 +129,7 @@ public class OwnerInController implements Initializable {
             name.getSelectionModel().clearSelection();
             unit_price.setText("");
             quantity.setText("");
+            ItemshowLabel.setText("");
         }catch(Exception ex){
             FootLabel.setText("You've left an option empty!");
         }
@@ -132,16 +145,12 @@ public class OwnerInController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ArrayList<String> types = new ArrayList<>();
-        types=Common.OwnerFile(new File("type list"));
+        ArrayList<String> types =Common.OwnerFile(new File("type list"));
         type.getItems().addAll(types);
 
-        ArrayList<String> unit_types=new ArrayList<>();
-        unit_types=Common.OwnerFile(new File("Unit type list"));
+        ArrayList<String> unit_types=Common.OwnerFile(new File("Unit type list"));
         unit_type.getItems().addAll(unit_types);
 
-        System.out.println("b");
-        System.out.println("b");
 
         // ArrayList<product> MF=new ArrayList<>();
         /*MF.add(new product("Onion","Vegetable"));
