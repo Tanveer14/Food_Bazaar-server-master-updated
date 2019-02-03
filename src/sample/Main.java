@@ -118,7 +118,7 @@ class WorkerThread implements Runnable{
                             String []parts=type.split("\t");
                             File file1=new File("Done Orders.txt");
                             FileWriter doneOrderWriter=new FileWriter(file1,true);
-                            doneOrderWriter.write(parts[1]);
+                            doneOrderWriter.write(parts[1]+"\n");
                             doneOrderWriter.close();
 
                             System.out.println("Order No "+parts[1]);
