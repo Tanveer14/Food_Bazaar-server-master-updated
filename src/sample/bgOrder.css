@@ -1,0 +1,4 @@
+.bgorderimage{
+    -fx-background-image: url("/sample/foood4.jpg");
+    -fx-background-size: 100% 100%;
+}

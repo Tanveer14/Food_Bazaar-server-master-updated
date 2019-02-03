@@ -95,7 +95,7 @@ public class Customer implements Serializable {
         ) {
             temp = temp + "\n" + p.getName() + "\t" + p.getUnit() + " " + p.getUnit_type() + "\t" + p.getPrice() + "taka";
         }
-        temp = temp + "\n\nTotal Price:" + "\t" +TotalPrice + "taka";
+        temp = temp + "\n\nTotal Price:" + "\t" +TotalPrice + " taka";
 
         temp += "\n\n\n";
         temp = temp + "Customer Details:\n******************" +
