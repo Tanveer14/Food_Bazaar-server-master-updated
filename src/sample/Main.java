@@ -23,26 +23,34 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*Parent root = FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
         primaryStage.setTitle("Food Bazaar");
          primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.show();*/
+        primaryStage.show();
 
          ss = new ServerSocket(port);
-        while(true) {
-            try {
+         Thread s=new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 while(true) {
+                     try {
 
-                Socket connection = ss.accept();
-                WorkerThread wt = new WorkerThread(connection);
-                Thread t = new Thread(wt);
-                t.start();
+                         Socket connection = ss.accept();
+                         WorkerThread wt = new WorkerThread(connection);
+                         Thread t = new Thread(wt);
+                         t.start();
         /*for(product i:sendtoClient){
             os.writeObject(i);
         }*/
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
+                     } catch (Exception e) {
+                         System.out.println(e);
+                     }
+                 }
+             }
+         });
+
+         s.start();
+
 
 
     }

@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OrderViewController">
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="bgorderimage" stylesheets="@bgOrder.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OrderViewController">
    <children>
       <Label alignment="CENTER" layoutX="273.0" layoutY="30.0" prefHeight="48.0" prefWidth="254.0" text="Orders ">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="OrderLabel" alignment="TOP_LEFT" layoutX="46.0" layoutY="81.0" prefHeight="458.0" prefWidth="708.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
       <Button fx:id="DoneButton" layoutX="620.0" layoutY="539.0" mnemonicParsing="false" onAction="#DoneButtonClicked" text="Done" />
       <Button fx:id="NextOrderButton" layoutX="680.0" layoutY="539.0" mnemonicParsing="false" onAction="#NextOrderButtonClicked" text="Next Order" />
       <Button fx:id="PreviousOrderButton" layoutX="39.0" layoutY="539.0" mnemonicParsing="false" onAction="#PreviousOrderButtonClicked" text="Previous Order" />
       <Button fx:id="GoBackButton" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#GoBackButtonClicked" text="Go Back" />
+      <ScrollPane layoutX="106.0" layoutY="96.0" prefHeight="388.0" prefWidth="612.0">
+         <content>
+            <Label fx:id="OrderLabel" alignment="TOP_LEFT">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </Label>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
