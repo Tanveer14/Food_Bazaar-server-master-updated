@@ -10,6 +10,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import static sun.plugin2.main.client.LiveConnectSupport.shutdown;
@@ -31,7 +33,6 @@ public class Main extends Application {
             try {
 
                 Socket connection = ss.accept();
-                System.out.println("accepted");
                 WorkerThread wt = new WorkerThread(connection);
                 Thread t = new Thread(wt);
                 t.start();
@@ -177,17 +178,51 @@ class WorkerThread implements Runnable{
                                 System.out.println(temp);
                                 CustomerArrayList.add(temp);
                             }catch (EOFException e){
-                                System.out.println("file ended");
                                 break;
                             }
                         }
 
-                        System.out.println("Customer is  "+customer1);
                         CustomerArrayList.add(customer1);
                         System.out.println();
                         System.out.println("it is    "+CustomerArrayList);
                         System.out.println();
                         oin.close();
+
+                        Map<String,ArrayList<String>> mapFoodTypes=new HashMap<>();
+                        Map<String,Double> mapAvailableItems=new HashMap<>();
+                        for(int i=0;i<customer1.getProductList().size();i++){
+                            String foodtype=customer1.getProductList().get(i).getType();
+                            String foodname=customer1.getProductList().get(i).getName();
+                            Double unit=customer1.getProductList().get(i).getUnit();
+                            if(mapFoodTypes.get(foodtype)==null){
+                                mapFoodTypes.put(foodtype,new ArrayList<String>());
+                            }
+                            mapFoodTypes.get(foodtype).add(foodname);
+                            if(mapAvailableItems.get(foodname)==null){
+                                mapAvailableItems.put(foodname,unit);
+                            }
+                            /*else{
+                                unit+=mapAvailableItems.get(foodname);
+                            }*/
+                        }
+                        for(Map.Entry<String,ArrayList<String>> ee:mapFoodTypes.entrySet()){
+                            System.out.println(ee.getKey()+" "+ee.getValue());
+                            ArrayList<product> temp=Common.ownerFileInput(new File(ee.getKey().toLowerCase()+".txt"));
+                            for(int i=0;i<ee.getValue().size();i++){
+                                for(int j=0;j<temp.size();j++){
+                                    if(ee.getValue().get(i).equals(temp.get(j).getName())){
+                                        Double Unit=mapAvailableItems.get(temp.get(j).getName());
+                                        int unit=Unit.intValue();
+                                        temp.get(j).exclude_available_units(unit);
+                                        if(temp.get(j).getAvailable_units()==0){
+                                            temp.remove(j);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            Common.fileupdate(new File(ee.getKey().toLowerCase() + ".txt"),temp);
+                        }
 
 
 ////here the total customerlist will be added to the file
