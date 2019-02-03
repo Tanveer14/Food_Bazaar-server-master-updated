@@ -112,6 +112,45 @@ class WorkerThread implements Runnable{
                                 e.printStackTrace();
                             }
                         }
+                        else if(type.startsWith("Customer Id:"))
+                        {
+                            String []parts=type.split("\t");
+                            File file1=new File("Done Orders.txt");
+                            FileWriter doneOrderWriter=new FileWriter(file1,true);
+                            doneOrderWriter.write(parts[1]);
+                            doneOrderWriter.close();
+
+                            System.out.println("Order No "+parts[1]);
+                            int orderId=Integer.parseInt(parts[1]);
+                            ArrayList<Customer> CustomerArrayList=new ArrayList<>();
+                            FileInputStream fi=new FileInputStream(file);
+                            ObjectInputStream oi=new ObjectInputStream(fi);
+                            while (true)
+                            {
+                                try {
+                                    Customer temp= (Customer) oi.readObject();
+                                   if(temp.getId()!=orderId) CustomerArrayList.add(temp);
+                                }catch (EOFException e){
+                                    break;
+                                }
+                            }
+                            oi.close();
+
+                            FileOutputStream fo=new FileOutputStream(file);
+                            ObjectOutputStream Oo=new ObjectOutputStream(fo);
+
+                            for (Customer c:CustomerArrayList) {
+                                Oo.writeObject(c);
+                            }
+
+                            Oo.close();
+
+                            os.writeObject(CustomerArrayList);
+
+
+
+
+                        }
                         else {
 
                             System.out.println(type);
