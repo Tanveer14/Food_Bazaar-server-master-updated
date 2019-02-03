@@ -66,7 +66,16 @@ public class OrderViewController implements Initializable {
         }
         count--;
         if(OrderList.size()!=0)NextOrderButtonClicked();
-        else OrderLabel.setText("No Order Pending ! ! !");
+        else
+        {
+            DoneButton.setDisable(true);
+            NextOrderButton.setDisable(true);
+            PreviousOrderButton.setDisable(true);
+            OrderLabel.setText("No Order Pending ! ! !");
+        }
+
+
+
     }
 
 
@@ -85,7 +94,7 @@ public class OrderViewController implements Initializable {
             count--;
             OrderLabel.setText(OrderList.get(count).toMessage());
         }
-        if(count-1==0)PreviousOrderButton.setDisable(true);
+        if(count-1<0)PreviousOrderButton.setDisable(true);
     }
 
 
@@ -110,11 +119,16 @@ public class OrderViewController implements Initializable {
             System.out.println(CustomerArrayList);
             oi.close();
             OrderList=CustomerArrayList;
-            if(OrderList.size()!=0)OrderLabel.setText(OrderList.get(count).toMessage());
+            if(OrderList.size()!=0){
+                OrderLabel.setText(OrderList.get(count).toMessage());
+                if(count+1==OrderList.size())NextOrderButton.setDisable(true);
+                if(count-1<0)PreviousOrderButton.setDisable(true);
+            }
             else{
                 OrderLabel.setText("No Order Pending ! ! !");
                 NextOrderButton.setDisable(true);
                 PreviousOrderButton.setDisable(true);
+                DoneButton.setDisable(true);
             }
 
 

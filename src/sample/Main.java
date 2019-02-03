@@ -125,9 +125,11 @@ class WorkerThread implements Runnable{
                         {
                             String []parts=type.split("\t");
                             File file1=new File("Done Orders.txt");
-                            FileWriter doneOrderWriter=new FileWriter(file1,true);
+                            /*FileWriter doneOrderWriter=new FileWriter(file1,true);
                             doneOrderWriter.write(parts[1]+"\n");
-                            doneOrderWriter.close();
+                            doneOrderWriter.close();*/
+
+                            Order order=new Order();
 
                             System.out.println("Order No "+parts[1]);
                             int orderId=Integer.parseInt(parts[1]);
@@ -139,6 +141,7 @@ class WorkerThread implements Runnable{
                                 try {
                                     Customer temp= (Customer) oi.readObject();
                                    if(temp.getId()!=orderId) CustomerArrayList.add(temp);
+                                   else order=new Order(temp.getId(),temp.getName());
                                 }catch (EOFException e){
                                     break;
                                 }
@@ -147,12 +150,35 @@ class WorkerThread implements Runnable{
 
                             FileOutputStream fo=new FileOutputStream(file);
                             ObjectOutputStream Oo=new ObjectOutputStream(fo);
-
                             for (Customer c:CustomerArrayList) {
                                 Oo.writeObject(c);
                             }
-
                             Oo.close();
+
+                            ArrayList<Order> DoneOrders=new ArrayList<>();
+                            FileInputStream fi2=new FileInputStream("Done Orders.txt");
+                            ObjectInputStream oi2=new ObjectInputStream(fi2);
+                            while (true)
+                            {
+                                try {
+                                    Order o= (Order) oi2.readObject();
+                                    DoneOrders.add(o);
+                                }catch (EOFException e){
+                                    break;
+                                }
+                            }
+                            oi2.close();
+
+                            DoneOrders.add(order);
+
+                            FileOutputStream fo2=new FileOutputStream("Done Orders.txt");
+                            ObjectOutputStream Oo2=new ObjectOutputStream(fo2);
+                            for (Order o:DoneOrders) {
+                                Oo2.writeObject(o);
+                                System.out.println(o);
+                            }
+                            Oo2.close();
+
 
                             os.writeObject(CustomerArrayList);
 
