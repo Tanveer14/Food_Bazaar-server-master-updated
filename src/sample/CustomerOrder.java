@@ -2,22 +2,25 @@ package sample;
 
 import java.io.Serializable;
 
-public class Order implements Serializable {
+public class CustomerOrder implements Serializable {
+    static final long serialVersionUID = 42L;
     int id;
     String name;
     String status;
 
-    public Order(int id) {
+    public CustomerOrder(String name,int id) {
         this.id = id;
-        this.status="Ordered";
+        this.name=name;
     }
 
-    public Order(int id, String status) {
+
+
+    public CustomerOrder(int id, String status) {
         this.id = id;
         this.status = status;
     }
 
-    public Order() {
+    public CustomerOrder() {
 
     }
 
