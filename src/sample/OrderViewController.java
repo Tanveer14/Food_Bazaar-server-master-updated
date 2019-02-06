@@ -35,7 +35,8 @@ public class OrderViewController implements Initializable {
             String[] parts = type.split("\t");
             File file1 = new File("Done Orders.txt");
             FileWriter doneOrderWriter = new FileWriter(file1, true);
-            doneOrderWriter.write(parts[1]+"\n");
+            String s=parts[1]+"\n";
+            doneOrderWriter.write(s);
             doneOrderWriter.close();
 
             System.out.println("Order No " + parts[1]);

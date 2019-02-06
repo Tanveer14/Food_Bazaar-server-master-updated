@@ -238,7 +238,7 @@ class WorkerThread implements Runnable{
                                 {
 
                                     try {
-                                        String  k=String.valueOf(scanner.nextLine());
+                                        String  k=String.valueOf(scanner.nextInt());
                                         if(k.equals(id))
                                         {
                                             gotIt=true;
