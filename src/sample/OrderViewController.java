@@ -84,8 +84,9 @@ public class OrderViewController implements Initializable {
         if(count+1<OrderList.size()){
             count++;
             OrderLabel.setText(OrderList.get(count).toMessage());
+            PreviousOrderButton.setDisable(false);
         }
-        if(count+1==OrderList.size())NextOrderButton.setDisable(true);
+        if(count+1>=OrderList.size())NextOrderButton.setDisable(true);
 
     }
     @FXML public void PreviousOrderButtonClicked(){
@@ -93,6 +94,7 @@ public class OrderViewController implements Initializable {
         {
             count--;
             OrderLabel.setText(OrderList.get(count).toMessage());
+            NextOrderButton.setDisable(false);
         }
         if(count-1<0)PreviousOrderButton.setDisable(true);
     }
@@ -102,34 +104,41 @@ public class OrderViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
        //networking needed to read from the arraylist of orders
 
-        try {
+        if(file.length()==0){
+            OrderLabel.setText("No Order Pending ! ! !");
+            NextOrderButton.setDisable(true);
+            PreviousOrderButton.setDisable(true);
+            DoneButton.setDisable(true);
+        }else {
 
-            ArrayList<Customer> CustomerArrayList=new ArrayList<>();
-            FileInputStream fi=new FileInputStream(file);
-            ObjectInputStream oi=new ObjectInputStream(fi);
-            while (true)
-            {
-                try {
-                    Customer temp= (Customer) oi.readObject();
-                    CustomerArrayList.add(temp);
-                }catch (EOFException e){
-                    break;
+            try {
+
+                ArrayList<Customer> CustomerArrayList=new ArrayList<>();
+                FileInputStream fi=new FileInputStream(file);
+                ObjectInputStream oi=new ObjectInputStream(fi);
+                while (true)
+                {
+                    try {
+                        Customer temp= (Customer) oi.readObject();
+                        CustomerArrayList.add(temp);
+                    }catch (EOFException e){
+                        break;
+                    }
                 }
-            }
-            System.out.println(CustomerArrayList);
-            oi.close();
-            OrderList=CustomerArrayList;
-            if(OrderList.size()!=0){
-                OrderLabel.setText(OrderList.get(count).toMessage());
-                if(count+1==OrderList.size())NextOrderButton.setDisable(true);
-                if(count-1<0)PreviousOrderButton.setDisable(true);
-            }
-            else{
-                OrderLabel.setText("No Order Pending ! ! !");
-                NextOrderButton.setDisable(true);
-                PreviousOrderButton.setDisable(true);
-                DoneButton.setDisable(true);
-            }
+                System.out.println(CustomerArrayList);
+                oi.close();
+                OrderList=CustomerArrayList;
+                if(OrderList.size()!=0){
+                    OrderLabel.setText(OrderList.get(count).toMessage());
+                    if(count+1==OrderList.size())NextOrderButton.setDisable(true);
+                    if(count-1<0)PreviousOrderButton.setDisable(true);
+                }
+                else{
+                    OrderLabel.setText("No Order Pending ! ! !");
+                    NextOrderButton.setDisable(true);
+                    PreviousOrderButton.setDisable(true);
+                    DoneButton.setDisable(true);
+                }
 
 
             /*File file=new File("orderInfo.txt");
@@ -148,11 +157,13 @@ public class OrderViewController implements Initializable {
             System.out.println(OrderList.get(0).toString());
             OrderLabel.setText(OrderList.get(0).toString());
             socket.close();*/
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
    /* public void PreviousOrderButtonClicked(ActionEvent event) {
