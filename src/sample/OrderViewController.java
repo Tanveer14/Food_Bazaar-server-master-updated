@@ -39,29 +39,35 @@ public class OrderViewController implements Initializable {
             doneOrderWriter.write(s);
             doneOrderWriter.close();
 
-            System.out.println("Order No " + parts[1]);
+
             int orderId = Integer.parseInt(parts[1]);
+            System.out.println("Order No " + orderId);
             ArrayList<Customer> CustomerArrayList = new ArrayList<>();
             FileInputStream fi = new FileInputStream(file);
             ObjectInputStream oi = new ObjectInputStream(fi);
             while (true) {
                 try {
                     Customer temp = (Customer) oi.readObject();
+                    System.out.println(temp);
+                    System.out.println(temp.getId());
                     if (temp.getId() != orderId) CustomerArrayList.add(temp);
                 } catch (EOFException e) {
                     break;
                 }
             }
             oi.close();
+            fi.close();
 
             FileOutputStream fo = new FileOutputStream(file);
             ObjectOutputStream Oo = new ObjectOutputStream(fo);
 
             for (Customer c : CustomerArrayList) {
+                System.out.println(c);
                 Oo.writeObject(c);
             }
 
             Oo.close();
+            fo.close();
 
             OrderList = CustomerArrayList;
         }
