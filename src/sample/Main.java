@@ -192,6 +192,7 @@ class WorkerThread implements Runnable{
 
                         }else if(type.startsWith("CheckOrder"))
                         {
+                            System.out.println("in check order");
                             CustomerOrder temp=new CustomerOrder();
                             CustomerOrder temp1=new CustomerOrder();
                             String []parts=type.split(" ");
@@ -206,14 +207,16 @@ class WorkerThread implements Runnable{
                             temp.setId(CustomerId);
                             boolean OrderExists=false;
 
-                            FileInputStream filein=new FileInputStream("All Orders Info.txt");
+                            FileInputStream filein=new FileInputStream(new File("All Orders Info.txt"));
                             ObjectInputStream objin=new ObjectInputStream(filein);
                             while (true)
                             {
                                 try {
                                     CustomerOrder co= (CustomerOrder) objin.readObject();
+                                    System.out.println(co.getId());
                                     if(co.getId()==CustomerId){
                                         OrderExists=true;
+                                        System.out.println("got "+co.toString());
                                         temp.setName(co.getName());
                                         break;
                                     }
@@ -230,15 +233,33 @@ class WorkerThread implements Runnable{
                                 temp.setName("No Name");
                                 temp.setStatus("Invalid ID");
                             }else {
-                                Scanner scanner=new Scanner("Done Orders.txt");
+                                Scanner scanner=new Scanner(new File("Done Orders.txt"));
                                 boolean gotIt=false;
 
                                 String id=String.valueOf(CustomerId);
-                                while (true)
+                                System.out.println(id);
+                                while(scanner.hasNext()){
+                                    String str=scanner.nextLine();
+                                    System.out.println(str);
+                                    if(str.equals(id)){
+                                        gotIt=true;
+                                        break;
+                                    }
+                                }
+                                if (gotIt){
+                                    temp.setStatus("Order Cleared!");
+                                }
+                                else {
+                                    //here orderInfo.txt needs to be read to get the name of the customer
+                                    temp.setStatus("Pending");
+
+                                }
+
+                                /*while (true)
                                 {
 
                                     try {
-                                        String  k=String.valueOf(scanner.nextLine());
+                                        String  k=String.valueOf(scanner.nextInt());
                                         if(k.equals(id))
                                         {
                                             gotIt=true;
@@ -249,16 +270,9 @@ class WorkerThread implements Runnable{
                                         System.out.println(" main444 "+e );
                                         break;
                                     }
-                                }
+                                }*/
 
-                                if (gotIt){
-                                    temp.setStatus("Order Cleared!");
-                                }
-                                else {
-                                    //here orderInfo.txt needs to be read to get the name of the customer
-                                    temp.setStatus("Pending");
 
-                                }
                             }
                             System.out.println(temp);
                             os.writeObject(temp);
@@ -301,9 +315,9 @@ class WorkerThread implements Runnable{
                                     oin.close();
                                     break;
                                 }
-
-
                             }
+                            fin.close();
+
 
                             FileInputStream fin2 = new FileInputStream(file3);
                             ObjectInputStream oin2  = new ObjectInputStream(fin2);
@@ -316,9 +330,9 @@ class WorkerThread implements Runnable{
                                     oin2.close();
                                     break;
                                 }
-
-
                             }
+                            fin2.close();
+
 
 
                         }catch (EOFException e)
@@ -393,23 +407,29 @@ class WorkerThread implements Runnable{
 
 ////here the total customerlist will be added to the file
                         //it will be helpfull if somehow the file can be made blank
-                        FileOutputStream fo=new FileOutputStream(file2);
-                        ObjectOutputStream Oo=new ObjectOutputStream(fo);
+                        try {
+                            FileOutputStream fo = new FileOutputStream(file2);
+                            ObjectOutputStream Oo = new ObjectOutputStream(fo);
 
-                        for (Customer c:CustomerArrayList) {
-                            Oo.writeObject(c);
+                            for (Customer c : CustomerArrayList) {
+                                Oo.writeObject(c);
+                            }
+
+                            Oo.close();
+                            fo.close();
+
+                            FileOutputStream fo2 = new FileOutputStream(file3);
+                            ObjectOutputStream Oo2 = new ObjectOutputStream(fo2);
+
+                            for (CustomerOrder c : CustomerOrderArrayList) {
+                                Oo2.writeObject(c);
+                            }
+
+                            Oo2.close();
+                            fo2.close();
+                        }catch (Exception e){
+                            System.out.println("in here");
                         }
-
-                        Oo.close();
-
-                        FileOutputStream fo2=new FileOutputStream(file3);
-                        ObjectOutputStream Oo2=new ObjectOutputStream(fo2);
-
-                        for (CustomerOrder c:CustomerOrderArrayList) {
-                            Oo2.writeObject(c);
-                        }
-
-                        Oo2.close();
 
                         //when the customer confirms order, then  the id increases by 1 and writes into file
                         int customercount=customer1.getId()+1;
