@@ -35,7 +35,7 @@ public class OrderViewController implements Initializable {
             String[] parts = type.split("\t");
             File file1 = new File("Done Orders.txt");
             FileWriter doneOrderWriter = new FileWriter(file1, true);
-            doneOrderWriter.write(parts[1]);
+            doneOrderWriter.write(parts[1]+"\n");
             doneOrderWriter.close();
 
             System.out.println("Order No " + parts[1]);
@@ -64,6 +64,18 @@ public class OrderViewController implements Initializable {
 
             OrderList = CustomerArrayList;
         }
+        count--;
+        if(OrderList.size()!=0)NextOrderButtonClicked();
+        else
+        {
+            DoneButton.setDisable(true);
+            NextOrderButton.setDisable(true);
+            PreviousOrderButton.setDisable(true);
+            OrderLabel.setText("No Order Pending ! ! !");
+        }
+
+
+
     }
 
 
@@ -73,6 +85,7 @@ public class OrderViewController implements Initializable {
             count++;
             OrderLabel.setText(OrderList.get(count).toMessage());
         }
+        if(count+1==OrderList.size())NextOrderButton.setDisable(true);
 
     }
     @FXML public void PreviousOrderButtonClicked(){
@@ -81,6 +94,7 @@ public class OrderViewController implements Initializable {
             count--;
             OrderLabel.setText(OrderList.get(count).toMessage());
         }
+        if(count-1<0)PreviousOrderButton.setDisable(true);
     }
 
 
@@ -105,7 +119,17 @@ public class OrderViewController implements Initializable {
             System.out.println(CustomerArrayList);
             oi.close();
             OrderList=CustomerArrayList;
-            OrderLabel.setText(OrderList.get(count).toMessage());
+            if(OrderList.size()!=0){
+                OrderLabel.setText(OrderList.get(count).toMessage());
+                if(count+1==OrderList.size())NextOrderButton.setDisable(true);
+                if(count-1<0)PreviousOrderButton.setDisable(true);
+            }
+            else{
+                OrderLabel.setText("No Order Pending ! ! !");
+                NextOrderButton.setDisable(true);
+                PreviousOrderButton.setDisable(true);
+                DoneButton.setDisable(true);
+            }
 
 
             /*File file=new File("orderInfo.txt");
@@ -131,8 +155,8 @@ public class OrderViewController implements Initializable {
         }
     }
 
-    public void PreviousOrderButtonClicked(ActionEvent event) {
-    }
+   /* public void PreviousOrderButtonClicked(ActionEvent event) {
+    }*/
 
     public void GoBackButtonClicked(ActionEvent event) throws IOException {
         Parent newsceneparent= FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));

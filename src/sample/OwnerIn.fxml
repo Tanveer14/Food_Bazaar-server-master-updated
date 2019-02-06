@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="bgloginimage" stylesheets="@bglogin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OwnerInController">
    <children>
-      <VBox layoutX="263.0" layoutY="112.0" prefHeight="440.0" prefWidth="300.0" spacing="15.0">
+      <VBox layoutX="263.0" layoutY="112.0" prefHeight="400.0" prefWidth="300.0" spacing="15.0">
          <children>
             <ComboBox fx:id="type" editable="true" onAction="#productTypeSelected" prefHeight="40.0" prefWidth="300.0" promptText="Product Type" />
             <ComboBox fx:id="name" disable="true" editable="true" onAction="#ItemTypeSelected" prefHeight="40.0" prefWidth="300.0" promptText="Product Name" />
@@ -33,17 +33,17 @@
                   <Insets left="110.0" />
                </VBox.margin>
             </Button>
-            <Label fx:id="FootLabel" alignment="CENTER" prefHeight="35.0" prefWidth="250.0">
-               <VBox.margin>
-                  <Insets left="25.0" />
-               </VBox.margin>
-            </Label>
          </children>
       </VBox>
       <Button fx:id="OrderCheckButton" layoutX="671.0" layoutY="520.0" mnemonicParsing="false" onAction="#OrderCheckButtonClicked" prefHeight="25.0" prefWidth="110.0" text="Check Orders" />
       <Label layoutX="288.0" layoutY="35.0" prefHeight="58.0" prefWidth="250.0" text="Add Your Products">
          <font>
             <Font name="System Bold Italic" size="27.0" />
+         </font>
+      </Label>
+      <Label fx:id="FootLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="515.0" prefHeight="49.0" prefWidth="327.0" textFill="#171616">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
    </children>
