@@ -25,6 +25,7 @@ public class OwnerInController implements Initializable {
     public Label FootLabel,ItemshowLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
+    private ArrayList<String> types=new ArrayList<>();
 
 
    /* @FXML public void nextpagebuttonClicked(ActionEvent event) throws Exception{
@@ -123,6 +124,28 @@ public class OwnerInController implements Initializable {
                         Integer.parseInt(quantity.getText()),unit_type.getSelectionModel().getSelectedItem()));
             }
             Common.fileupdate(new File(s.toLowerCase()+".txt"),item);
+            int check=0;
+            for(String temp:types){
+                if(temp.equals(s)){
+                    check=1;
+                    break;
+                }
+            }
+            if(check==0){
+                types.add(s);
+                    File typefile=new File("type list");
+                    try {
+                        FileOutputStream fo = new FileOutputStream(typefile);
+                        ObjectOutputStream oo = new ObjectOutputStream(fo);
+                        oo.writeObject(types);
+                        oo.close();
+                        fo.close();
+                    }catch(FileNotFoundException ff){
+                        System.out.println( ff);
+                    }catch(IOException io){
+                        System.out.println(io);
+                    }
+            }
             FootLabel.setText("Updated ! ! !");
             type.getSelectionModel().clearSelection();
             unit_type.getSelectionModel().clearSelection();
@@ -145,7 +168,7 @@ public class OwnerInController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ArrayList<String> types =Common.OwnerFile(new File("type list"));
+        types =Common.OwnerFile(new File("type list"));
         type.getItems().addAll(types);
 
         ArrayList<String> unit_types=Common.OwnerFile(new File("Unit type list"));
