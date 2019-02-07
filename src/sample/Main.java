@@ -248,7 +248,7 @@ class WorkerThread implements Runnable{
                                     }
                                 }
                                 if (gotIt){
-                                    temp.setStatus("Order Cleared!");
+                                    temp.setStatus("Cleared!");
                                 }
                                 else {
                                     //here orderInfo.txt needs to be read to get the name of the customer

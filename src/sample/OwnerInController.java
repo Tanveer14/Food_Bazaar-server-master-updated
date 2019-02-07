@@ -21,7 +21,7 @@ public class OwnerInController implements Initializable {
     @FXML public ComboBox<String> type,unit_type;
     @FXML public ComboBox<String> name;
     @FXML public TextField quantity,unit_price;
-    public Button updateButton,OrderCheckButton;
+    public Button updateButton,OrderCheckButton,StockButton;
     public Label FootLabel,ItemshowLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
@@ -70,6 +70,12 @@ public class OwnerInController implements Initializable {
         }
 
     }*/
+
+   public void StockButtonClicked(ActionEvent e) throws Exception{
+
+       Parent page= FXMLLoader.load(getClass().getResource("Stock.fxml"));
+       Common.ButtonClicked(e,page);
+   }
 
 
 

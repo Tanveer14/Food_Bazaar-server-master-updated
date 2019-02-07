@@ -46,5 +46,6 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
+      <Button fx:id="StockButton" layoutX="682.0" layoutY="472.0" mnemonicParsing="false" onAction="#StockButtonClicked" text="View Stock" />
    </children>
 </AnchorPane>
