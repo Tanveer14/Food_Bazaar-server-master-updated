@@ -386,13 +386,16 @@ class WorkerThread implements Runnable{
                                 mapAvailableItems.put(foodname,unit);
                             }
                         }
+
                         for(Map.Entry<String,ArrayList<String>> ee:mapFoodTypes.entrySet()){
                             System.out.println(ee.getKey()+" "+ee.getValue());
                             ArrayList<product> temp=Common.ownerFileInput(new File(ee.getKey().toLowerCase()+".txt"));
                             for(int i=0;i<ee.getValue().size();i++){
+                                if(!(mapAvailableItems.containsKey(ee.getValue().get(i)))) continue;
                                 for(int j=0;j<temp.size();j++){
                                     if(ee.getValue().get(i).equals(temp.get(j).getName())){
                                         Double Unit=mapAvailableItems.get(temp.get(j).getName());
+                                        mapAvailableItems.remove(temp.get(j).getName());
                                         int unit=Unit.intValue();
                                         temp.get(j).exclude_available_units(unit);
                                         if(temp.get(j).getAvailable_units()<=0){
