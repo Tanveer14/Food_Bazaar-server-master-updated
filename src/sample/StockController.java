@@ -104,27 +104,27 @@ public class StockController implements Initializable {
         Label4.setText("");
         Label5.setText("");
         count=0;
-        Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\nper "+temp.get(k).getUnit_type());
+        Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox1.setVisible(true);
         k++;
         count++;
         if(k==temp.size()) return 0;
-        Label2.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\nper "+temp.get(k).getUnit_type());
+        Label2.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox2.setVisible(true);
         k++;
         count++;
         if(k==temp.size()) return 0;
-        Label3.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\nper "+temp.get(k).getUnit_type());
+        Label3.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox3.setVisible(true);
         k++;
         count++;
         if(k==temp.size()) return 0;
-        Label4.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\nper "+temp.get(k).getUnit_type());
+        Label4.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox4.setVisible(true);
         k++;
         count++;
         if(k==temp.size()) return 0;
-        Label5.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\nper "+temp.get(k).getUnit_type());
+        Label5.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox5.setVisible(true);
         k++;
         count++;
@@ -159,10 +159,15 @@ public class StockController implements Initializable {
         types=Common.OwnerFile(new File("type list"));
         int i=0;
         while (true){
-            String itemtext=types.get(i);
-            treeItems.add(new TreeItem<>(itemtext));
-            i++;
-            if(i>itemtext.length())break;
+            try{
+                String itemtext=types.get(i);
+                treeItems.add(new TreeItem<>(itemtext));
+                i++;
+            }catch (Exception e)
+            {
+                break;
+            }
+
 
         }
         foods.getChildren().addAll(treeItems);

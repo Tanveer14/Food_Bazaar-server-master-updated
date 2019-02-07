@@ -24,7 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Stock.fxml"));
         primaryStage.setTitle("Food Bazaar");
          primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
@@ -248,7 +248,7 @@ class WorkerThread implements Runnable{
                                     }
                                 }
                                 if (gotIt){
-                                    temp.setStatus("Order Cleared!");
+                                    temp.setStatus("Cleared!");
                                 }
                                 else {
                                     //here orderInfo.txt needs to be read to get the name of the customer
