@@ -22,8 +22,7 @@
                   <Label fx:id="Label1" prefHeight="90.0" prefWidth="180.0" />
                   <VBox fx:id="vbox1" prefHeight="100.0" prefWidth="123.0" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="Unit1" prefHeight="25.0" prefWidth="114.0" promptText="Select Units" />
-                        <Button fx:id="button1" mnemonicParsing="false" onAction="#AddToCartButton1Clicked" text="Delete Product" />
+                        <Button fx:id="button1" mnemonicParsing="false" onAction="#button1Clicked" text="Delete Product" />
                      </children>
                   </VBox>
                </children>
@@ -36,8 +35,7 @@
                   <Label fx:id="Label2" prefHeight="90.0" prefWidth="180.0" />
                   <VBox fx:id="vbox2" prefHeight="100.0" prefWidth="123.0" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="Unit2" prefHeight="25.0" prefWidth="114.0" promptText="Select Units" />
-                        <Button fx:id="button2" mnemonicParsing="false" onAction="#AddToCartButton2Clicked" text="Delete Product" />
+                        <Button fx:id="button2" mnemonicParsing="false" onAction="#button2Clicked" text="Delete Product" />
                      </children>
                   </VBox>
                </children>
@@ -50,8 +48,7 @@
                   <Label fx:id="Label3" prefHeight="90.0" prefWidth="180.0" />
                   <VBox fx:id="vbox3" prefHeight="100.0" prefWidth="123.0" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="Unit3" prefHeight="25.0" prefWidth="114.0" promptText="Select Units" />
-                        <Button fx:id="button3" mnemonicParsing="false" onAction="#AddToCartButton3Clicked" text="Delete Product" />
+                        <Button fx:id="button3" mnemonicParsing="false" onAction="#button3Clicked" text="Delete Product" />
                      </children>
                   </VBox>
                </children>
@@ -64,8 +61,7 @@
                   <Label fx:id="Label4" prefHeight="90.0" prefWidth="180.0" />
                   <VBox fx:id="vbox4" prefHeight="100.0" prefWidth="123.0" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="Unit4" prefHeight="25.0" prefWidth="114.0" promptText="Select Units" />
-                        <Button fx:id="button4" mnemonicParsing="false" onAction="#AddToCartButton4Clicked" text="Delete Product" />
+                        <Button fx:id="button4" mnemonicParsing="false" onAction="#button4Clicked" text="Delete Product" />
                      </children>
                   </VBox>
                </children>
@@ -78,8 +74,7 @@
                   <Label fx:id="Label5" prefHeight="90.0" prefWidth="180.0" />
                   <VBox fx:id="vbox5" prefHeight="100.0" prefWidth="123.0" spacing="30.0">
                      <children>
-                        <ComboBox fx:id="Unit5" prefHeight="25.0" prefWidth="114.0" promptText="Select Units" />
-                        <Button fx:id="button5" mnemonicParsing="false" onAction="#AddToCartButton5Clicked" text="Delete Product" />
+                        <Button fx:id="button5" mnemonicParsing="false" onAction="#button5Clicked" text="Delete Product" />
                      </children>
                   </VBox>
                </children>
