@@ -60,7 +60,7 @@ public class StockController implements Initializable {
 
     public void DeleteTypeButtonClicked(){
         String typeofDeleteType=caption.getText();
-        Alert alert=new Alert(Alert.AlertType.WARNING);
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Warning");
         alert.setHeaderText(null);
         alert.setContentText("You are attempting to remove "+typeofDeleteType+" food type along with its food items."+
