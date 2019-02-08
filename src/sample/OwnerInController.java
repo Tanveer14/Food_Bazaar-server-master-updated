@@ -156,6 +156,7 @@ public class OwnerInController implements Initializable {
             type.getSelectionModel().clearSelection();
             unit_type.getSelectionModel().clearSelection();
             name.getSelectionModel().clearSelection();
+            name.setValue("");
             unit_price.setText("");
             quantity.setText("");
             ItemshowLabel.setText("");

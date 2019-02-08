@@ -144,7 +144,8 @@ public class StockController implements Initializable {
         Label4.setText("");
         Label5.setText("");
         count=0;
-        Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
+        if(k==temp.size()) return 0;
+         Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox1.setVisible(true);
         k++;
         count++;

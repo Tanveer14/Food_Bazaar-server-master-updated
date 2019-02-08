@@ -19,7 +19,6 @@ import static sun.plugin2.main.client.LiveConnectSupport.shutdown;
 public class Main extends Application {
     public static final int port= 4444;
     private ServerSocket ss;
-    String type;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -40,9 +39,6 @@ public class Main extends Application {
                          WorkerThread wt = new WorkerThread(connection);
                          Thread t = new Thread(wt);
                          t.start();
-        /*for(product i:sendtoClient){
-            os.writeObject(i);
-        }*/
                      } catch (Exception e) {
                          System.out.println(e+" main1");
                      }
@@ -69,7 +65,6 @@ class WorkerThread implements Runnable{
 
     public void run(){
         String type;
-        Customer customer;
 
 
         try {
@@ -81,7 +76,6 @@ class WorkerThread implements Runnable{
                     if(ob.getClass().getName().equals("java.lang.String"))
                     {
                         type=(String)ob;
-                        System.out.println(type);
                         if(type.equals("Show Orders"))
                         {
                             ArrayList<Customer> CustomerArrayList=new ArrayList<>();
@@ -96,8 +90,8 @@ class WorkerThread implements Runnable{
                                     break;
                                 }
                             }
-                            System.out.println(CustomerArrayList);
                             oi.close();
+                            fi.close();
                             os.writeObject(CustomerArrayList);
 
                         }
@@ -128,10 +122,6 @@ class WorkerThread implements Runnable{
                         {
 
                             String []parts=type.split("\t");
-                            File file1=new File("Done Orders.txt");
-                            /*FileWriter doneOrderWriter=new FileWriter(file1,true);
-                            doneOrderWriter.write(parts[1]+"\n");
-                            doneOrderWriter.close();*/
 
                             CustomerOrder order=new CustomerOrder();
 
@@ -151,6 +141,7 @@ class WorkerThread implements Runnable{
                                 }
                             }
                             oi.close();
+                            fi.close();
 
                             FileOutputStream fo=new FileOutputStream(file);
                             ObjectOutputStream Oo=new ObjectOutputStream(fo);
@@ -158,6 +149,7 @@ class WorkerThread implements Runnable{
                                 Oo.writeObject(c);
                             }
                             Oo.close();
+                            fo.close();
 
                             ArrayList<CustomerOrder> DoneOrders=new ArrayList<>();
 
@@ -174,6 +166,7 @@ class WorkerThread implements Runnable{
                                 }
                             }
                             oi2.close();
+                            fi2.close();
 
                             DoneOrders.add(order);
 
@@ -184,26 +177,17 @@ class WorkerThread implements Runnable{
                                 System.out.println(o);
                             }
                             Oo2.close();
-
+                            fo2.close();
 
                             os.writeObject(CustomerArrayList);
-
-
-
-
-                        }else if(type.startsWith("CheckOrder"))
+                        }
+                        else if(type.startsWith("CheckOrder"))
                         {
                             System.out.println("in check order");
                             CustomerOrder temp=new CustomerOrder();
                             CustomerOrder temp1=new CustomerOrder();
                             String []parts=type.split(" ");
                             int CustomerId=Integer.parseInt(parts[1]);
-                           /* File fileC=new File("Idcount.txt");
-
-                            Scanner scanner=new Scanner(fileC);
-                            int customercount= Integer.parseInt(scanner.nextLine());
-                            scanner.close();*/
-
 
                             temp.setId(CustomerId);
                             boolean OrderExists=false;
@@ -227,6 +211,8 @@ class WorkerThread implements Runnable{
                                 }
                             }
 
+                            objin.close();
+                            filein.close();
 
 
 
@@ -251,28 +237,9 @@ class WorkerThread implements Runnable{
                                     temp.setStatus("Cleared!");
                                 }
                                 else {
-                                    //here orderInfo.txt needs to be read to get the name of the customer
                                     temp.setStatus("Pending");
 
                                 }
-
-                                /*while (true)
-                                {
-
-                                    try {
-                                        String  k=String.valueOf(scanner.nextInt());
-                                        if(k.equals(id))
-                                        {
-                                            gotIt=true;
-                                            break;
-                                        }
-
-                                    }catch (Exception e){
-                                        System.out.println(" main444 "+e );
-                                        break;
-                                    }
-                                }*/
-
 
                             }
                             System.out.println(temp);
@@ -281,7 +248,6 @@ class WorkerThread implements Runnable{
                         //another else if will be added for sending an order status
                         else {
 
-                            System.out.println(type);
                             ArrayList<product> senttoClient=Common.setSceneforNetworking(type);
                             os.writeObject(senttoClient);
                         }
@@ -342,30 +308,11 @@ class WorkerThread implements Runnable{
                             System.out.println("here1");
                         }
 
-                     /*   File file3=new File("All Orders Info.txt");
-                        ArrayList<Customer> CustomerArrayList2=new ArrayList<>();
-                        FileInputStream fin1=new FileInputStream(file2);
-                        ObjectInputStream oin1=new ObjectInputStream(fin);
-                        while (true)
-                        {
-                            try {
-                                Customer temp= (Customer) oin1.readObject();
-                                System.out.println(temp);
-                                CustomerArrayList2.add(temp);
-                            }catch (EOFException e){
-                                break;
-                            }
-                        }
-                        CustomerArrayList2.add(customer1);
-                        */
+
                         CustomerArrayList.add(customer1);
                         CustomerOrderArrayList.add(customerOrder);
 
-
-
-                        System.out.println();
                         System.out.println("it is    "+CustomerArrayList);
-                        System.out.println();
 
 
                         Map<String,ArrayList<String>> mapFoodTypes=new HashMap<>();
@@ -388,7 +335,6 @@ class WorkerThread implements Runnable{
                         }
 
                         for(Map.Entry<String,ArrayList<String>> ee:mapFoodTypes.entrySet()){
-                            System.out.println(ee.getKey()+" "+ee.getValue());
                             ArrayList<product> temp=Common.ownerFileInput(new File(ee.getKey().toLowerCase()+".txt"));
                             for(int i=0;i<ee.getValue().size();i++){
                                 if(!(mapAvailableItems.containsKey(ee.getValue().get(i)))) continue;
@@ -438,7 +384,6 @@ class WorkerThread implements Runnable{
                         //when the customer confirms order, then  the id increases by 1 and writes into file
                         int customercount=customer1.getId()+1;
                         FileWriter fw=new FileWriter("Idcount.txt");
-                        //fw.write(String.valueOf(customercount));
                         fw.write(String.valueOf(customercount));
                         fw.close();
 
