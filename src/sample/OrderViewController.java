@@ -72,7 +72,10 @@ public class OrderViewController implements Initializable {
             OrderList = CustomerArrayList;
         }
         count--;
-        if(OrderList.size()!=0)NextOrderButtonClicked();
+        if(OrderList.size()!=0)
+        {
+            NextOrderButtonClicked();
+        }
         else
         {
             DoneButton.setDisable(true);
@@ -88,22 +91,29 @@ public class OrderViewController implements Initializable {
 
     @FXML public void NextOrderButtonClicked()
     {
-        if(count+1<OrderList.size()){
+
+        count=(count+1)%OrderList.size();
+        OrderLabel.setText(OrderList.get(count).toMessage());
+      /*  if(count+1<OrderList.size()){
             count++;
             OrderLabel.setText(OrderList.get(count).toMessage());
             PreviousOrderButton.setDisable(false);
         }
-        if(count+1>=OrderList.size())NextOrderButton.setDisable(true);
+        if(count+1>=OrderList.size())NextOrderButton.setDisable(true);*/
 
     }
     @FXML public void PreviousOrderButtonClicked(){
-        if(count-1>=0)
+
+        if(count-1<0)count+=OrderList.size();
+        count=(count-1)%OrderList.size();
+        OrderLabel.setText(OrderList.get(count).toMessage());
+       /* if(count-1>=0)
         {
             count--;
             OrderLabel.setText(OrderList.get(count).toMessage());
             NextOrderButton.setDisable(false);
         }
-        if(count-1<0)PreviousOrderButton.setDisable(true);
+        if(count-1<0)PreviousOrderButton.setDisable(true);*/
     }
 
 
@@ -137,8 +147,8 @@ public class OrderViewController implements Initializable {
                 OrderList=CustomerArrayList;
                 if(OrderList.size()!=0){
                     OrderLabel.setText(OrderList.get(count).toMessage());
-                    if(count+1==OrderList.size())NextOrderButton.setDisable(true);
-                    if(count-1<0)PreviousOrderButton.setDisable(true);
+                    /*if(count+1==OrderList.size())NextOrderButton.setDisable(true);
+                    if(count-1<0)PreviousOrderButton.setDisable(true);*/
                 }
                 else{
                     OrderLabel.setText("No Order Pending ! ! !");
