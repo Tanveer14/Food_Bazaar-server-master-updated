@@ -13,10 +13,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DoubleStringConverter;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class StockController implements Initializable {
     @FXML Button button1,button2,button3,button4,button5;
     @FXML VBox vbox1,vbox2,vbox3,vbox4,vbox5;
     @FXML Button nextButton;
-    @FXML private Button previousButton,goBackButton;
+    @FXML private Button previousButton,goBackButton,DeleteTypeButton;
 
     ArrayList<String> types;
     @FXML TreeView<String> FoodTree;
@@ -57,6 +54,42 @@ public class StockController implements Initializable {
                     " available ones\n"+temp);
             Common.fileupdate(new File(typeofDeleteItem.toLowerCase()+".txt"),temp);
             setScene(typeofDeleteItem);
+
+        }
+    }
+
+    public void DeleteTypeButtonClicked(){
+        String typeofDeleteType=caption.getText();
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+        alert.setContentText("You are attempting to remove "+typeofDeleteType+" food type along with its food items."+
+                "\nAre you sure you want to delete it?\nOnce deleted , no items of this foodtype will be available.");
+        Optional<ButtonType> action=alert.showAndWait();
+        if(action.get()==ButtonType.OK){
+            for(int i=0;i<types.size();i++){
+                if(types.get(i).equalsIgnoreCase(typeofDeleteType)){
+                    types.remove(i);
+                    break;
+                }
+            }
+            File typefile=new File("type list");
+            try {
+                FileOutputStream fo = new FileOutputStream(typefile);
+                ObjectOutputStream oo = new ObjectOutputStream(fo);
+                oo.writeObject(types);
+                oo.close();
+                fo.close();
+            }catch(FileNotFoundException ff){
+                System.out.println( ff);
+            }catch(IOException io){
+                System.out.println(io);
+            }
+            File deleteFile=new File(typeofDeleteType.toLowerCase()+".txt");
+            deleteFile.delete();
+            System.out.println("file deleted");
+            String strtemp=types.get(0);
+            setScene(strtemp);
 
         }
     }
@@ -144,7 +177,8 @@ public class StockController implements Initializable {
         Label4.setText("");
         Label5.setText("");
         count=0;
-        Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
+        if(k==temp.size()) return 0;
+         Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox1.setVisible(true);
         k++;
         count++;

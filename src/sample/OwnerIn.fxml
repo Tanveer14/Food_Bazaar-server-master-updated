@@ -26,7 +26,7 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font></Label>
             <TextField fx:id="quantity" prefHeight="40.0" prefWidth="300.0" promptText="Product Quantity" />
-            <ComboBox fx:id="unit_type" editable="true" prefHeight="40.0" prefWidth="300.0" promptText="Product Unit Type" />
+            <ComboBox fx:id="unit_type" prefHeight="40.0" prefWidth="300.0" promptText="Product Unit Type" />
             <TextField fx:id="unit_price" prefHeight="40.0" prefWidth="300.0" promptText="Update Unit Price" />
             <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="33.0" prefWidth="73.0" text="Add">
                <VBox.margin>

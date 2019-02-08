@@ -92,23 +92,27 @@ public class OwnerInController implements Initializable {
                 }
             }
         }catch(Exception ex){
-            System.out.println(ex);
+            ex.printStackTrace();
         }
         name.setDisable(false);
         ItemshowLabel.setText("");
+        name.setValue(null);
 
 
     }
 
     public void ItemTypeSelected() throws Exception{
         String s=name.getSelectionModel().getSelectedItem();
-        for(product i:item){
-            if(i.getName().equals(s)){
-                String text="Product name: "+s+"\nAvailable Units: "+i.getAvailable_units()+"\nPrice: "+i.getPrice()+" tk per "+i.getUnit_type();
-                ItemshowLabel.setText(text);
-                break;
+        if(s!=null){
+            for(product i:item){
+                if(i.getName().equals(s)){
+                    String text="Product name: "+s+"\nAvailable Units: "+i.getAvailable_units()+"\nPrice: "+i.getPrice()+" tk per "+i.getUnit_type();
+                    ItemshowLabel.setText(text);
+                    break;
+                }
             }
         }
+
     }
 
     public void updateButtonClicked()  {
@@ -147,7 +151,7 @@ public class OwnerInController implements Initializable {
                         oo.close();
                         fo.close();
                     }catch(FileNotFoundException ff){
-                        System.out.println( ff);
+                        System.out.println(ff);
                     }catch(IOException io){
                         System.out.println(io);
                     }
@@ -159,6 +163,10 @@ public class OwnerInController implements Initializable {
             unit_price.setText("");
             quantity.setText("");
             ItemshowLabel.setText("");
+            type.getItems().clear();
+            type.getItems().addAll(types);
+            type.setValue(null);
+            name.setValue(null);
         }catch(Exception ex){
             FootLabel.setText("You've left an option empty!");
         }
