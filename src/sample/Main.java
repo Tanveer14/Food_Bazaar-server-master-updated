@@ -185,36 +185,41 @@ class WorkerThread implements Runnable{
                         {
                             System.out.println("in check order");
                             CustomerOrder temp=new CustomerOrder();
+                            int CustomerId = 0;
+                            boolean OrderExists=false;
                             CustomerOrder temp1=new CustomerOrder();
                             String []parts=type.split(" ");
-                            int CustomerId=Integer.parseInt(parts[1]);
+                           try {
+                               CustomerId=Integer.parseInt(parts[1]);
 
-                            temp.setId(CustomerId);
-                            boolean OrderExists=false;
+                               temp.setId(CustomerId);
+                               FileInputStream filein=new FileInputStream(new File("All Orders Info.txt"));
+                               ObjectInputStream objin=new ObjectInputStream(filein);
+                               while (true)
+                               {
+                                   try {
+                                       CustomerOrder co= (CustomerOrder) objin.readObject();
+                                       System.out.println(co.getId());
+                                       if(co.getId()==CustomerId){
+                                           OrderExists=true;
+                                           System.out.println("got "+co.toString());
+                                           temp.setName(co.getName());
+                                           break;
+                                       }
+                                   }catch (Exception e){
+                                       System.out.println("IT "+e);
+                                       break;
+                                   }
+                               }
 
-                            FileInputStream filein=new FileInputStream(new File("All Orders Info.txt"));
-                            ObjectInputStream objin=new ObjectInputStream(filein);
-                            while (true)
-                            {
-                                try {
-                                    CustomerOrder co= (CustomerOrder) objin.readObject();
-                                    System.out.println(co.getId());
-                                    if(co.getId()==CustomerId){
-                                        OrderExists=true;
-                                        System.out.println("got "+co.toString());
-                                        temp.setName(co.getName());
-                                        break;
-                                    }
-                                }catch (Exception e){
-                                    System.out.println("IT "+e);
-                                    break;
-                                }
-                            }
-
-                            objin.close();
-                            filein.close();
+                               objin.close();
+                               filein.close();
 
 
+                           }catch (Exception e)
+                           {
+                               
+                           }
 
                             if(!OrderExists){
                                 temp.setName("No Name");

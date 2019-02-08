@@ -38,9 +38,14 @@ public class OrderViewController implements Initializable {
             String s=parts[1]+"\n";
             doneOrderWriter.write(s);
             doneOrderWriter.close();
+            
+            int orderId = 0;
 
-
-            int orderId = Integer.parseInt(parts[1]);
+            try{
+                orderId = Integer.parseInt(parts[1]);
+            }catch (Exception e){
+                
+            }
             System.out.println("Order No " + orderId);
             ArrayList<Customer> CustomerArrayList = new ArrayList<>();
             FileInputStream fi = new FileInputStream(file);
