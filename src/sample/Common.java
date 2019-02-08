@@ -47,7 +47,7 @@ public class Common {
             oo.close();
             fo.close();
         }catch(FileNotFoundException ff){
-            System.out.println( ff);
+            System.out.println(ff);
         }catch(IOException io){
             System.out.println(io);
         }
@@ -72,7 +72,7 @@ public class Common {
             ob.close();
             fi.close();
         }catch(FileNotFoundException ex){
-            System.out.println(ex);
+            System.out.println("new type as file is not found");
         }catch(IOException el){
             System.out.println(el);
         }catch(ClassNotFoundException cl){
