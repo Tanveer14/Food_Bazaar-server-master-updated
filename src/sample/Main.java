@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ public class Main extends Application {
         primaryStage.show();
 
          ss = new ServerSocket(port);
+        System.out.println(InetAddress.getLocalHost());
          Thread s=new Thread(new Runnable() {
              @Override
              public void run() {
                  while(true) {
                      try {
-
                          Socket connection = ss.accept();
                          WorkerThread wt = new WorkerThread(connection);
                          Thread t = new Thread(wt);

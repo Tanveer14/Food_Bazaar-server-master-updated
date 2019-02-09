@@ -26,6 +26,7 @@ public class OwnerInController implements Initializable {
 
     public static ArrayList<product> item=new ArrayList<>();
     private ArrayList<String> types=new ArrayList<>();
+    private ArrayList<String>  unit_types=new ArrayList<>();
 
 
    /* @FXML public void nextpagebuttonClicked(ActionEvent event) throws Exception{
@@ -156,6 +157,31 @@ public class OwnerInController implements Initializable {
                         System.out.println(io);
                     }
             }
+            int unitcheck=0;
+            for(String i:unit_types){
+                if(i.equals(unit_type.getSelectionModel().getSelectedItem()))
+                {
+                    unitcheck=1;
+                    break;
+                }
+            }
+            if(unitcheck==0&&!(unit_type.getSelectionModel().getSelectedItem().equals(null))){
+                unit_types.add(unit_type.getSelectionModel().getSelectedItem());
+                File typefile=new File("Unit type list");
+                try {
+                    FileOutputStream fo = new FileOutputStream(typefile);
+                    ObjectOutputStream oo = new ObjectOutputStream(fo);
+                    oo.writeObject(unit_types);
+                    oo.close();
+                    fo.close();
+                }catch(FileNotFoundException ff){
+                    System.out.println(ff);
+                }catch(IOException io){
+                    System.out.println(io);
+                }
+                unit_type.getItems().clear();
+                unit_type.getItems().addAll(unit_types);
+            }
             FootLabel.setText("Updated ! ! !");
             type.getSelectionModel().clearSelection();
             unit_type.getSelectionModel().clearSelection();
@@ -167,6 +193,7 @@ public class OwnerInController implements Initializable {
             type.getItems().addAll(types);
             type.setValue(null);
             name.setValue(null);
+            unit_type.setValue(null);
         }catch(Exception ex){
             FootLabel.setText("You've left an option empty!");
         }
@@ -185,7 +212,7 @@ public class OwnerInController implements Initializable {
         types =Common.OwnerFile(new File("type list"));
         type.getItems().addAll(types);
 
-        ArrayList<String> unit_types=Common.OwnerFile(new File("Unit type list"));
+        unit_types=Common.OwnerFile(new File("Unit type list"));
         unit_type.getItems().addAll(unit_types);
 
 
