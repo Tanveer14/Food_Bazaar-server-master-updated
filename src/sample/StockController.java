@@ -138,7 +138,7 @@ public class StockController implements Initializable {
     }
 
     public void goBackButtonClicked(ActionEvent e) throws Exception{
-        Parent page=FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
+        Parent page=FXMLLoader.load(getClass().getResource("FirstPage.fxml"));
         Common.ButtonClicked(e,page);
     }
 
