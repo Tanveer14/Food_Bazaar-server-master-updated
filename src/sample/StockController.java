@@ -23,9 +23,9 @@ import java.util.ResourceBundle;
 public class StockController implements Initializable {
 
     public static String Currentpage=null;
-    @FXML Label Label1,Label2,Label3,Label4,Label5,caption;
-    @FXML Button button1,button2,button3,button4,button5;
-    @FXML VBox vbox1,vbox2,vbox3,vbox4,vbox5;
+    @FXML Label Label1,Label2,Label3,Label4,Label5,Label6,caption;
+    @FXML Button button1,button2,button3,button4,button5,button6;
+    @FXML VBox vbox1,vbox2,vbox3,vbox4,vbox5,vbox6;
     @FXML Button nextButton;
     @FXML private Button previousButton,goBackButton,DeleteTypeButton;
 
@@ -130,6 +130,13 @@ public class StockController implements Initializable {
         setAlert(neededItem[0]);
     }
 
+    public void button6Clicked()
+    {
+        String item=Label6.getText();
+        String[] neededItem=item.split("\n");
+        setAlert(neededItem[0]);
+    }
+
     public void goBackButtonClicked(ActionEvent e) throws Exception{
         Parent page=FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
         Common.ButtonClicked(e,page);
@@ -142,7 +149,7 @@ public class StockController implements Initializable {
     }
 
     public void previousButtonClicked() throws Exception{
-        k=k-count-5;
+        k=k-count-6;
         nextButton.setVisible(true);
         if(k==0) previousButton.setVisible(false);
         int l=setLabelText();
@@ -171,11 +178,13 @@ public class StockController implements Initializable {
         vbox3.setVisible(false);
         vbox4.setVisible(false);
         vbox5.setVisible(false);
+        vbox6.setVisible(false);
         Label1.setText("");
         Label2.setText("");
         Label3.setText("");
         Label4.setText("");
         Label5.setText("");
+        Label6.setText("");
         count=0;
         if(k==temp.size()) return 0;
          Label1.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
@@ -200,6 +209,12 @@ public class StockController implements Initializable {
         if(k==temp.size()) return 0;
         Label5.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
         vbox5.setVisible(true);
+        k++;
+        count++;
+        if(k==temp.size()) return 0;
+
+        Label6.setText(temp.get(k).getName()+"\n"+temp.get(k).getPrice()+" tk\tper "+temp.get(k).getUnit_type()+"\nAvailable: "+temp.get(k).getAvailable_units()+" "+temp.get(k).getUnit_type());
+        vbox6.setVisible(true);
         k++;
         count++;
         if(k==temp.size()) return 0;
