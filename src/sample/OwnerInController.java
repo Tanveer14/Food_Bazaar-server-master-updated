@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javafx.event.ActionEvent;
 import java.io.*;
@@ -74,7 +71,7 @@ public class OwnerInController implements Initializable {
 
    public void StockButtonClicked(ActionEvent e) throws Exception{
 
-       Parent page= FXMLLoader.load(getClass().getResource("Stock.fxml"));
+       Parent page= FXMLLoader.load(getClass().getResource("Stock2.fxml"));
        Common.ButtonClicked(e,page);
    }
 
@@ -183,6 +180,11 @@ public class OwnerInController implements Initializable {
                 unit_type.getItems().addAll(unit_types);
             }
             FootLabel.setText("Updated ! ! !");
+
+            /*Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Stock Updated !");
+            alert.showAndWait();*/
+
             type.getSelectionModel().clearSelection();
             unit_type.getSelectionModel().clearSelection();
             name.getSelectionModel().clearSelection();
@@ -195,7 +197,11 @@ public class OwnerInController implements Initializable {
             name.setValue(null);
             unit_type.setValue(null);
         }catch(Exception ex){
-            FootLabel.setText("You've left an option empty!");
+
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("No option can be empty !");
+            alert.showAndWait();
+           // FootLabel.setText("You've left an option empty!");
         }
     }
 

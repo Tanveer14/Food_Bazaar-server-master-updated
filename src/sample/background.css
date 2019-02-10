@@ -2,3 +2,8 @@
     -fx-background-image: url("/sample/front.jpg");
     -fx-background-size: 100% 100%;
 }
+
+.boxbg{
+    -fx-background-color: "fffacd";
+    -fx-border-color: "bdb76b";
+}
