@@ -122,11 +122,11 @@ public class OrderViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        //networking needed to read from the arraylist of orders
-        GoBackButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE");
-        NextOrderButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE");
-        DoneButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE");
-        PreviousOrderButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE");
-        Caption.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE");
+        GoBackButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        NextOrderButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        DoneButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        PreviousOrderButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        Caption.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;");
 
         if(file.length()==0){
             OrderLabel.setText("No Order Pending ! ! !");

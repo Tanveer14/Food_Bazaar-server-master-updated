@@ -16,8 +16,14 @@
                <children>
                   <AnchorPane prefHeight="34.0" prefWidth="614.0">
                      <children>
-                        <Button fx:id="previousButton" layoutX="39.0" layoutY="2.0" mnemonicParsing="false" onAction="#previousButtonClicked" prefHeight="25.0" styleClass="boxbg" stylesheets="@background.css" text="&lt;&lt;Previous" textFill="ORANGE" visible="false" />
-                        <Button fx:id="nextButton" layoutX="482.0" layoutY="5.0" mnemonicParsing="false" onAction="#nextButtonClicked" prefHeight="25.0" prefWidth="80.0" styleClass="boxbg" stylesheets="@background.css" text="Next&gt;&gt;" textFill="ORANGE" visible="false" />
+                        <Button fx:id="previousButton" layoutX="39.0" layoutY="2.0" mnemonicParsing="false" onAction="#previousButtonClicked" prefHeight="25.0" styleClass="boxbg" stylesheets="@background.css" text="&lt;&lt;Previous" textFill="ORANGE" visible="false">
+                           <font>
+                              <Font name="Agency FB Bold" size="12.0" />
+                           </font></Button>
+                        <Button fx:id="nextButton" layoutX="482.0" layoutY="5.0" mnemonicParsing="false" onAction="#nextButtonClicked" prefHeight="25.0" prefWidth="80.0" styleClass="boxbg" stylesheets="@background.css" text="Next&gt;&gt;" textFill="ORANGE" visible="false">
+                           <font>
+                              <Font name="Agency FB Bold" size="12.0" />
+                           </font></Button>
                         <Button fx:id="DeleteTypeButton" layoutX="253.0" layoutY="2.0" mnemonicParsing="false" onAction="#DeleteTypeButtonClicked" prefHeight="25.0" prefWidth="95.0" styleClass="boxbg" stylesheets="@background.css" text="Delete Type" textFill="ORANGE">
                            <font>
                               <Font name="Agency FB Bold" size="12.0" />
@@ -58,7 +64,7 @@
                      <children>
                         <AnchorPane prefHeight="180.0" styleClass="boxbg2" stylesheets="@background.css">
                            <children>
-                              <Button fx:id="button1" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button1Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE">
+                              <Button fx:id="button1" layoutX="35.0" layoutY="121.0" mnemonicParsing="false" onAction="#button1Clicked" prefHeight="25.0" prefWidth="85.0" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                                  <font>
                                     <Font name="Agency FB Bold" size="12.0" />
                                  </font></Button>
@@ -74,7 +80,7 @@
                      <children>
                         <AnchorPane prefHeight="180.0" styleClass="boxbg2" stylesheets="@background.css">
                            <children>
-                              <Button fx:id="button2" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button2Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE">
+                              <Button fx:id="button2" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button2Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                                  <font>
                                     <Font name="Agency FB Bold" size="12.0" />
                                  </font></Button>
@@ -87,7 +93,7 @@
                      <children>
                         <AnchorPane prefHeight="180.0" styleClass="boxbg2" stylesheets="@background.css">
                            <children>
-                              <Button fx:id="button3" layoutX="32.0" layoutY="130.0" mnemonicParsing="false" onAction="#button3Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE">
+                              <Button fx:id="button3" layoutX="32.0" layoutY="130.0" mnemonicParsing="false" onAction="#button3Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                                  <font>
                                     <Font name="Agency FB Bold" size="12.0" />
                                  </font></Button>
@@ -107,7 +113,7 @@
                      <children>
                         <AnchorPane prefHeight="180.0" styleClass="boxbg2" stylesheets="@background.css">
                            <children>
-                              <Button fx:id="button4" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button4Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE">
+                              <Button fx:id="button4" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button4Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                                  <font>
                                     <Font name="Agency FB Bold" size="12.0" />
                                  </font></Button>
@@ -123,7 +129,7 @@
                      <children>
                         <AnchorPane prefHeight="180.0" styleClass="boxbg2" stylesheets="@background.css">
                            <children>
-                              <Button fx:id="button5" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button5Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE">
+                              <Button fx:id="button5" layoutX="29.0" layoutY="129.0" mnemonicParsing="false" onAction="#button5Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                                  <font>
                                     <Font name="Agency FB Bold" size="12.0" />
                                  </font></Button>
@@ -139,7 +145,7 @@
                      <children>
                         <AnchorPane prefHeight="180.0" styleClass="boxbg2" stylesheets="@background.css">
                            <children>
-                              <Button fx:id="button6" layoutX="30.0" layoutY="129.0" mnemonicParsing="false" onAction="#button6Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE">
+                              <Button fx:id="button6" layoutX="30.0" layoutY="129.0" mnemonicParsing="false" onAction="#button6Clicked" styleClass="boxbg" stylesheets="@background.css" text="Delete Product" textFill="ORANGE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                                  <font>
                                     <Font name="Agency FB Bold" size="12.0" />
                                  </font></Button>

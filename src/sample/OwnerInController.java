@@ -18,7 +18,7 @@ public class OwnerInController implements Initializable {
     @FXML public ComboBox<String> type,unit_type;
     @FXML public ComboBox<String> name;
     @FXML public TextField quantity,unit_price;
-    public Button updateButton,OrderCheckButton,StockButton;
+    public Button updateButton,HomeButton;
     public Label FootLabel,ItemshowLabel,CaptionLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
@@ -69,11 +69,6 @@ public class OwnerInController implements Initializable {
 
     }*/
 
-    public void StockButtonClicked(ActionEvent e) throws Exception{
-
-        Parent page= FXMLLoader.load(getClass().getResource("Stock2.fxml"));
-        Common.ButtonClicked(e,page);
-    }
 
 
 
@@ -115,6 +110,7 @@ public class OwnerInController implements Initializable {
 
     public void updateButtonClicked()  {
         int valid=1;
+        boolean validQ=true;
         try{
             String s=type.getSelectionModel().getSelectedItem();
             String t=name.getSelectionModel().getSelectedItem();
@@ -124,6 +120,7 @@ public class OwnerInController implements Initializable {
             System.out.println(s+" "+t+" "+unit+" "+price+" "+" "+type);
             if(s.equals(null)||t.equals(null)||type.equals(null)) {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
                 alert.setContentText("No option can be empty !");
                 alert.showAndWait();
                 valid=0;
@@ -131,6 +128,7 @@ public class OwnerInController implements Initializable {
 
         } catch(Exception e){
             Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setContentText("No option can be empty !");
             alert.showAndWait();
             valid=0;
@@ -146,84 +144,107 @@ public class OwnerInController implements Initializable {
                         k = 1;
                         item.get(i).setPrice(Double.parseDouble(unit_price.getText()));
                         item.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
-                        item.get(i).add_available_units(Integer.parseInt(quantity.getText()));
+                        int itemQ = 0;
+                        try {
+                            itemQ=Integer.parseInt(quantity.getText());
+                        }catch (Exception e){
+                            itemQ= (int) Double.parseDouble(quantity.getText());
+                        }
+                        if(item.get(i).getAvailable_units()+itemQ>=1){
+                            item.get(i).add_available_units(itemQ);
+                            System.out.println("Available  "+itemQ);
+                            validQ=true;
+                        }else {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setHeaderText(null);
+                            alert.setContentText("You cannot make the unit Zero or Lower. To remove an item, you can go to the  stock and delete it.");
+                            alert.showAndWait();
+                            validQ=false;
+                        }
                         break;
                     }
                 }
                 System.out.println("1");
-                if (k == 0) {
-                    item.add(new product(t, s, Double.parseDouble(unit_price.getText()),
-                            Integer.parseInt(quantity.getText()), unit_type.getSelectionModel().getSelectedItem()));
-                }
-                Common.fileupdate(new File(s.toLowerCase() + ".txt"), item);
-                int check = 0;
-                for (String temp : types) {
-                    if (temp.equals(s)) {
-                        check = 1;
-                        break;
-                    }
-                }
-                System.out.println("11111");
-                if (check == 0) {
-                    types.add(s);
-                    File typefile = new File("type list");
-                    try {
-                        FileOutputStream fo = new FileOutputStream(typefile);
-                        ObjectOutputStream oo = new ObjectOutputStream(fo);
-                        oo.writeObject(types);
-                        oo.close();
-                        fo.close();
-                    } catch (FileNotFoundException ff) {
-                        System.out.println(ff);
-                    } catch (IOException io) {
-                        System.out.println(io);
-                    }
-                }
-                System.out.println("111");
-                int unitcheck = 0;
-                for (String i : unit_types) {
-                    if (i.equals(unit_type.getSelectionModel().getSelectedItem())) {
-                        unitcheck = 1;
-                        break;
-                    }
-                }
-                System.out.println("11");
-                if (unitcheck == 0 && !(unit_type.getSelectionModel().getSelectedItem().equals(null))) {
-                    unit_types.add(unit_type.getSelectionModel().getSelectedItem());
-                    File typefile = new File("Unit type list");
-                    try {
-                        FileOutputStream fo = new FileOutputStream(typefile);
-                        ObjectOutputStream oo = new ObjectOutputStream(fo);
-                        oo.writeObject(unit_types);
-                        oo.close();
-                        fo.close();
-                    } catch (FileNotFoundException ff) {
-                        System.out.println(ff);
-                    } catch (IOException io) {
-                        System.out.println(io);
-                    }
-                    unit_type.getItems().clear();
-                    unit_type.getItems().addAll(unit_types);
-                }
-                System.out.println("5");
-                //FootLabel.setText("Updated ! ! !");
+             if (validQ)
+             {
+                 if (k == 0) {
+                     item.add(new product(t, s, Double.parseDouble(unit_price.getText()),
+                             Integer.parseInt(quantity.getText()), unit_type.getSelectionModel().getSelectedItem()));
+                 }
+                 Common.fileupdate(new File(s.toLowerCase() + ".txt"), item);
+                 int check = 0;
+                 for (String temp : types) {
+                     if (temp.equals(s)) {
+                         check = 1;
+                         break;
+                     }
+                 }
+                 System.out.println("11111");
+                 if (check == 0) {
+                     types.add(s);
+                     File typefile = new File("type list");
+                     try {
+                         FileOutputStream fo = new FileOutputStream(typefile);
+                         ObjectOutputStream oo = new ObjectOutputStream(fo);
+                         oo.writeObject(types);
+                         oo.close();
+                         fo.close();
+                     } catch (FileNotFoundException ff) {
+                         System.out.println(ff);
+                     } catch (IOException io) {
+                         System.out.println(io);
+                     }
+                 }
+                 System.out.println("111");
+                 int unitcheck = 0;
+                 for (String i : unit_types) {
+                     if (i.equals(unit_type.getSelectionModel().getSelectedItem())) {
+                         unitcheck = 1;
+                         break;
+                     }
+                 }
+                 System.out.println("11");
+                 if (unitcheck == 0 && !(unit_type.getSelectionModel().getSelectedItem().equals(null))) {
+                     unit_types.add(unit_type.getSelectionModel().getSelectedItem());
+                     File typefile = new File("Unit type list");
+                     try {
+                         FileOutputStream fo = new FileOutputStream(typefile);
+                         ObjectOutputStream oo = new ObjectOutputStream(fo);
+                         oo.writeObject(unit_types);
+                         oo.close();
+                         fo.close();
+                     } catch (FileNotFoundException ff) {
+                         System.out.println(ff);
+                     } catch (IOException io) {
+                         System.out.println(io);
+                     }
+                     unit_type.getItems().clear();
+                     unit_type.getItems().addAll(unit_types);
+                 }
+                 System.out.println("5");
+                 //FootLabel.setText("Updated ! ! !");
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Stock Updated !");
-                alert.showAndWait();
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 alert.setHeaderText(null);
+                 alert.setContentText("Stock Updated !");
+                 alert.showAndWait();
 
-                type.getSelectionModel().clearSelection();
-                unit_type.getSelectionModel().clearSelection();
-                name.getSelectionModel().clearSelection();
-                unit_price.setText("");
-                quantity.setText("");
-                ItemshowLabel.setText("");
-                type.getItems().clear();
-                name.getItems().clear();
-                type.getItems().addAll(types);
-                type.setValue(null);
-                name.setValue(null);
-                unit_type.setValue(null);
+                 type.getSelectionModel().clearSelection();
+                 unit_type.getSelectionModel().clearSelection();
+                 name.getSelectionModel().clearSelection();
+                 unit_price.setText("");
+                 quantity.setText("");
+                 ItemshowLabel.setText("");
+                 type.getItems().clear();
+                 name.getItems().clear();
+                 name.setDisable(true);
+                 type.getItems().addAll(types);
+                 type.setValue(null);
+                 name.setValue(null);
+                 unit_type.setValue(null);
+             }else {
+
+             }
             } catch (Exception ex) {
 
            /* Alert alert=new Alert(Alert.AlertType.ERROR);
@@ -236,10 +257,7 @@ public class OwnerInController implements Initializable {
 
 
 
-    public void OrderCheckButtonClicked(ActionEvent e) throws Exception{
-        Parent page= FXMLLoader.load(getClass().getResource("OrderView.fxml"));
-        Common.ButtonClicked(e,page);
-    }
+
 
 
     public void HomeButtonClicked(ActionEvent e) throws IOException {
@@ -257,7 +275,9 @@ public class OwnerInController implements Initializable {
         unit_type.getItems().addAll(unit_types);
 
 
-        CaptionLabel.setStyle("-fx-background-color: fce28c;"+"-fx-border-color: ORANGE");
+        CaptionLabel.setStyle("-fx-background-color: #232020;"+"-fx-border-color: ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        updateButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color: ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        HomeButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color: ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
         // ArrayList<product> MF=new ArrayList<>();
         /*MF.add(new product("Onion","Vegetable"));
         MF.add(new product("Tomato","Vegetable"));

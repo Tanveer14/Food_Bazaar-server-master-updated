@@ -19,7 +19,7 @@
             <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="AddProductButton" layoutX="332.0" layoutY="408.0" mnemonicParsing="false" onAction="#AddProductButtonClicked" prefHeight="25.0" prefWidth="136.0" text="Add New Products" textAlignment="CENTER" textFill="ORANGE">
+      <Button fx:id="AddProductButton" layoutX="332.0" layoutY="409.0" mnemonicParsing="false" onAction="#AddProductButtonClicked" prefHeight="25.0" prefWidth="136.0" text="Update Products" textAlignment="CENTER" textFill="ORANGE">
          <font>
             <Font name="Agency FB Bold" size="15.0" />
          </font>
