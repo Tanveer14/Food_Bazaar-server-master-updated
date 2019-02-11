@@ -121,14 +121,14 @@ public class OwnerInController implements Initializable {
             for(int i=0;i<item.size();i++){
                 if(item.get(i).getName().equalsIgnoreCase(t)){
                     k=1;
-                    item.get(i).setPrice(Integer.parseInt(unit_price.getText()));
+                    item.get(i).setPrice(Double.parseDouble(unit_price.getText()));
                     item.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
                     item.get(i).add_available_units(Integer.parseInt(quantity.getText()));
                     break;
                 }
             }
             if(k==0){
-                item.add(new product(t,s,Integer.parseInt(unit_price.getText()),
+                item.add(new product(t,s,Double.parseDouble(unit_price.getText()),
                         Integer.parseInt(quantity.getText()),unit_type.getSelectionModel().getSelectedItem()));
             }
             Common.fileupdate(new File(s.toLowerCase()+".txt"),item);

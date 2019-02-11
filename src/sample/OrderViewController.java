@@ -53,8 +53,6 @@ public class OrderViewController implements Initializable {
             while (true) {
                 try {
                     Customer temp = (Customer) oi.readObject();
-                    System.out.println(temp);
-                    System.out.println(temp.getId());
                     if (temp.getId() != orderId) CustomerArrayList.add(temp);
                 } catch (EOFException e) {
                     break;
@@ -67,7 +65,6 @@ public class OrderViewController implements Initializable {
             ObjectOutputStream Oo = new ObjectOutputStream(fo);
 
             for (Customer c : CustomerArrayList) {
-                System.out.println(c);
                 Oo.writeObject(c);
             }
 
