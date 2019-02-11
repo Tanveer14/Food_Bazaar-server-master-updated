@@ -3,3 +3,17 @@
     -fx-background-size: 100% 100%;
 }
 
+.boxbg{
+    -fx-background-color: ORANGE;
+    -fx-text-fill: #232020;
+    -fx-border-color: ORANGE;
+    -fx-border-radius:3;
+    -fx-background-radius: 3;
+}
+
+.boxbg2{
+    -fx-background-color: #fce28c;
+    -fx-border-color: ORANGE;
+    -fx-border-radius:3;
+    -fx-background-radius: 3;
+}

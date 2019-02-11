@@ -274,6 +274,8 @@ public class StockController implements Initializable {
         }catch(Exception e){
             System.out.println(e);
         }
+
+        FoodTree.setStyle("-fx-text-fill: ORANGE;"+"-fx-background-color: #232020;"+"-fx-border-color: ORANGE;");
         String strtemp=types.get(0);
         setScene(strtemp);
     }
