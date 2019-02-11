@@ -69,11 +69,11 @@ public class OwnerInController implements Initializable {
 
     }*/
 
-   public void StockButtonClicked(ActionEvent e) throws Exception{
+    public void StockButtonClicked(ActionEvent e) throws Exception{
 
-       Parent page= FXMLLoader.load(getClass().getResource("Stock2.fxml"));
-       Common.ButtonClicked(e,page);
-   }
+        Parent page= FXMLLoader.load(getClass().getResource("Stock2.fxml"));
+        Common.ButtonClicked(e,page);
+    }
 
 
 
@@ -114,96 +114,126 @@ public class OwnerInController implements Initializable {
     }
 
     public void updateButtonClicked()  {
+        int valid=1;
         try{
             String s=type.getSelectionModel().getSelectedItem();
             String t=name.getSelectionModel().getSelectedItem();
-            int k=0;
-            for(int i=0;i<item.size();i++){
-                if(item.get(i).getName().equalsIgnoreCase(t)){
-                    k=1;
-                    item.get(i).setPrice(Double.parseDouble(unit_price.getText()));
-                    item.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
-                    item.get(i).add_available_units(Integer.parseInt(quantity.getText()));
-                    break;
+            Double unit=Double.parseDouble(quantity.getText());
+            Double price=Double.parseDouble(unit_price.getText());
+            String type=unit_type.getSelectionModel().getSelectedItem();
+            System.out.println(s+" "+t+" "+unit+" "+price+" "+" "+type);
+            if(s.equals(null)||t.equals(null)||type.equals(null)) {
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("No option can be empty !");
+                alert.showAndWait();
+                valid=0;
+            }
+
+        } catch(Exception e){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("No option can be empty !");
+            alert.showAndWait();
+            valid=0;
+        }
+        if (valid == 1) {
+
+            try {
+                String s = type.getSelectionModel().getSelectedItem();
+                String t = name.getSelectionModel().getSelectedItem();
+                int k = 0;
+                for (int i = 0; i < item.size(); i++) {
+                    if (item.get(i).getName().equalsIgnoreCase(t)) {
+                        k = 1;
+                        item.get(i).setPrice(Double.parseDouble(unit_price.getText()));
+                        item.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
+                        item.get(i).add_available_units(Integer.parseInt(quantity.getText()));
+                        break;
+                    }
                 }
-            }
-            if(k==0){
-                item.add(new product(t,s,Double.parseDouble(unit_price.getText()),
-                        Integer.parseInt(quantity.getText()),unit_type.getSelectionModel().getSelectedItem()));
-            }
-            Common.fileupdate(new File(s.toLowerCase()+".txt"),item);
-            int check=0;
-            for(String temp:types){
-                if(temp.equals(s)){
-                    check=1;
-                    break;
+                System.out.println("1");
+                if (k == 0) {
+                    item.add(new product(t, s, Double.parseDouble(unit_price.getText()),
+                            Integer.parseInt(quantity.getText()), unit_type.getSelectionModel().getSelectedItem()));
                 }
-            }
-            if(check==0){
-                types.add(s);
-                    File typefile=new File("type list");
+                Common.fileupdate(new File(s.toLowerCase() + ".txt"), item);
+                int check = 0;
+                for (String temp : types) {
+                    if (temp.equals(s)) {
+                        check = 1;
+                        break;
+                    }
+                }
+                System.out.println("11111");
+                if (check == 0) {
+                    types.add(s);
+                    File typefile = new File("type list");
                     try {
                         FileOutputStream fo = new FileOutputStream(typefile);
                         ObjectOutputStream oo = new ObjectOutputStream(fo);
                         oo.writeObject(types);
                         oo.close();
                         fo.close();
-                    }catch(FileNotFoundException ff){
+                    } catch (FileNotFoundException ff) {
                         System.out.println(ff);
-                    }catch(IOException io){
+                    } catch (IOException io) {
                         System.out.println(io);
                     }
-            }
-            int unitcheck=0;
-            for(String i:unit_types){
-                if(i.equals(unit_type.getSelectionModel().getSelectedItem()))
-                {
-                    unitcheck=1;
-                    break;
                 }
-            }
-            if(unitcheck==0&&!(unit_type.getSelectionModel().getSelectedItem().equals(null))){
-                unit_types.add(unit_type.getSelectionModel().getSelectedItem());
-                File typefile=new File("Unit type list");
-                try {
-                    FileOutputStream fo = new FileOutputStream(typefile);
-                    ObjectOutputStream oo = new ObjectOutputStream(fo);
-                    oo.writeObject(unit_types);
-                    oo.close();
-                    fo.close();
-                }catch(FileNotFoundException ff){
-                    System.out.println(ff);
-                }catch(IOException io){
-                    System.out.println(io);
+                System.out.println("111");
+                int unitcheck = 0;
+                for (String i : unit_types) {
+                    if (i.equals(unit_type.getSelectionModel().getSelectedItem())) {
+                        unitcheck = 1;
+                        break;
+                    }
                 }
-                unit_type.getItems().clear();
-                unit_type.getItems().addAll(unit_types);
-            }
-            //FootLabel.setText("Updated ! ! !");
+                System.out.println("11");
+                if (unitcheck == 0 && !(unit_type.getSelectionModel().getSelectedItem().equals(null))) {
+                    unit_types.add(unit_type.getSelectionModel().getSelectedItem());
+                    File typefile = new File("Unit type list");
+                    try {
+                        FileOutputStream fo = new FileOutputStream(typefile);
+                        ObjectOutputStream oo = new ObjectOutputStream(fo);
+                        oo.writeObject(unit_types);
+                        oo.close();
+                        fo.close();
+                    } catch (FileNotFoundException ff) {
+                        System.out.println(ff);
+                    } catch (IOException io) {
+                        System.out.println(io);
+                    }
+                    unit_type.getItems().clear();
+                    unit_type.getItems().addAll(unit_types);
+                }
+                System.out.println("5");
+                //FootLabel.setText("Updated ! ! !");
 
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Stock Updated !");
-            alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Stock Updated !");
+                alert.showAndWait();
 
-            type.getSelectionModel().clearSelection();
-            unit_type.getSelectionModel().clearSelection();
-            name.getSelectionModel().clearSelection();
-            unit_price.setText("");
-            quantity.setText("");
-            ItemshowLabel.setText("");
-            type.getItems().clear();
-            type.getItems().addAll(types);
-            type.setValue(null);
-            name.setValue(null);
-            unit_type.setValue(null);
-        }catch(Exception ex){
+                type.getSelectionModel().clearSelection();
+                unit_type.getSelectionModel().clearSelection();
+                name.getSelectionModel().clearSelection();
+                unit_price.setText("");
+                quantity.setText("");
+                ItemshowLabel.setText("");
+                type.getItems().clear();
+                name.getItems().clear();
+                type.getItems().addAll(types);
+                type.setValue(null);
+                name.setValue(null);
+                unit_type.setValue(null);
+            } catch (Exception ex) {
 
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+           /* Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setContentText("No option can be empty !");
-            alert.showAndWait();
-           // FootLabel.setText("You've left an option empty!");
+            alert.showAndWait();*/
+                // FootLabel.setText("You've left an option empty!");
+            }
         }
     }
+
 
 
     public void OrderCheckButtonClicked(ActionEvent e) throws Exception{
