@@ -19,7 +19,7 @@ public class OwnerInController implements Initializable {
     @FXML public ComboBox<String> name;
     @FXML public TextField quantity,unit_price;
     public Button updateButton,OrderCheckButton,StockButton;
-    public Label FootLabel,ItemshowLabel;
+    public Label FootLabel,ItemshowLabel,CaptionLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
     private ArrayList<String> types=new ArrayList<>();
@@ -179,11 +179,11 @@ public class OwnerInController implements Initializable {
                 unit_type.getItems().clear();
                 unit_type.getItems().addAll(unit_types);
             }
-            FootLabel.setText("Updated ! ! !");
+            //FootLabel.setText("Updated ! ! !");
 
-            /*Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Stock Updated !");
-            alert.showAndWait();*/
+            alert.showAndWait();
 
             type.getSelectionModel().clearSelection();
             unit_type.getSelectionModel().clearSelection();
@@ -192,6 +192,7 @@ public class OwnerInController implements Initializable {
             quantity.setText("");
             ItemshowLabel.setText("");
             type.getItems().clear();
+            name.getItems().clear();
             type.getItems().addAll(types);
             type.setValue(null);
             name.setValue(null);
@@ -212,6 +213,11 @@ public class OwnerInController implements Initializable {
     }
 
 
+    public void HomeButtonClicked(ActionEvent e) throws IOException {
+        Parent page= FXMLLoader.load(getClass().getResource("FirstPage.fxml"));
+        Common.ButtonClicked(e,page);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -222,6 +228,7 @@ public class OwnerInController implements Initializable {
         unit_type.getItems().addAll(unit_types);
 
 
+        CaptionLabel.setStyle("-fx-background-color: fce28c;"+"-fx-border-color: ORANGE");
         // ArrayList<product> MF=new ArrayList<>();
         /*MF.add(new product("Onion","Vegetable"));
         MF.add(new product("Tomato","Vegetable"));

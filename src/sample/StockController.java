@@ -138,7 +138,7 @@ public class StockController implements Initializable {
     }
 
     public void goBackButtonClicked(ActionEvent e) throws Exception{
-        Parent page=FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
+        Parent page=FXMLLoader.load(getClass().getResource("FirstPage.fxml"));
         Common.ButtonClicked(e,page);
     }
 
@@ -274,6 +274,8 @@ public class StockController implements Initializable {
         }catch(Exception e){
             System.out.println(e);
         }
+
+        FoodTree.setStyle("-fx-text-fill: ORANGE;"+"-fx-background-color: #232020;"+"-fx-border-color: ORANGE;");
         String strtemp=types.get(0);
         setScene(strtemp);
     }

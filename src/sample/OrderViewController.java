@@ -189,7 +189,7 @@ public class OrderViewController implements Initializable {
     }*/
 
     public void GoBackButtonClicked(ActionEvent event) throws IOException {
-        Parent newsceneparent= FXMLLoader.load(getClass().getResource("OwnerIn.fxml"));
+        Parent newsceneparent= FXMLLoader.load(getClass().getResource("FirstPage.fxml"));
         Common.ButtonClicked(event,newsceneparent);
     }
 }

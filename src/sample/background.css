@@ -4,6 +4,16 @@
 }
 
 .boxbg{
-    -fx-background-color: "fffacd";
-    -fx-border-color: "bdb76b";
+    -fx-background-color: ORANGE;
+    -fx-text-fill: #232020;
+    -fx-border-color: ORANGE;
+    -fx-border-radius:3;
+    -fx-background-radius: 3;
+}
+
+.boxbg2{
+    -fx-background-color: #fce28c;
+    -fx-border-color: ORANGE;
+    -fx-border-radius:3;
+    -fx-background-radius: 3;
 }
