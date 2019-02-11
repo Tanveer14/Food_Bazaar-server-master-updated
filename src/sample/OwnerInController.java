@@ -143,8 +143,6 @@ public class OwnerInController implements Initializable {
                         item.get(i).setPrice(Double.parseDouble(unit_price.getText()));
                         item.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
                         int itemQ=Integer.parseInt(quantity.getText());
-
-                        if(itemQ<0)
                         if(item.get(i).getAvailable_units()+itemQ>=1){
                             item.get(i).add_available_units(itemQ);
                             System.out.println("Available  "+itemQ);
