@@ -18,7 +18,7 @@ public class OwnerInController implements Initializable {
     @FXML public ComboBox<String> type,unit_type;
     @FXML public ComboBox<String> name;
     @FXML public TextField quantity,unit_price;
-    public Button updateButton,OrderCheckButton,StockButton;
+    public Button updateButton,HomeButton;
     public Label FootLabel,ItemshowLabel,CaptionLabel;
 
     public static ArrayList<product> item=new ArrayList<>();
@@ -110,7 +110,7 @@ public class OwnerInController implements Initializable {
 
     public void updateButtonClicked()  {
         int valid=1;
-        boolean validQ=false;
+        boolean validQ=true;
         try{
             String s=type.getSelectionModel().getSelectedItem();
             String t=name.getSelectionModel().getSelectedItem();
@@ -120,6 +120,7 @@ public class OwnerInController implements Initializable {
             System.out.println(s+" "+t+" "+unit+" "+price+" "+" "+type);
             if(s.equals(null)||t.equals(null)||type.equals(null)) {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
                 alert.setContentText("No option can be empty !");
                 alert.showAndWait();
                 valid=0;
@@ -127,6 +128,7 @@ public class OwnerInController implements Initializable {
 
         } catch(Exception e){
             Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setContentText("No option can be empty !");
             alert.showAndWait();
             valid=0;
@@ -142,7 +144,12 @@ public class OwnerInController implements Initializable {
                         k = 1;
                         item.get(i).setPrice(Double.parseDouble(unit_price.getText()));
                         item.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
-                        int itemQ=Integer.parseInt(quantity.getText());
+                        int itemQ = 0;
+                        try {
+                            itemQ=Integer.parseInt(quantity.getText());
+                        }catch (Exception e){
+                            itemQ= (int) Double.parseDouble(quantity.getText());
+                        }
                         if(item.get(i).getAvailable_units()+itemQ>=1){
                             item.get(i).add_available_units(itemQ);
                             System.out.println("Available  "+itemQ);
@@ -218,6 +225,7 @@ public class OwnerInController implements Initializable {
                  //FootLabel.setText("Updated ! ! !");
 
                  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 alert.setHeaderText(null);
                  alert.setContentText("Stock Updated !");
                  alert.showAndWait();
 
@@ -229,6 +237,7 @@ public class OwnerInController implements Initializable {
                  ItemshowLabel.setText("");
                  type.getItems().clear();
                  name.getItems().clear();
+                 name.setDisable(true);
                  type.getItems().addAll(types);
                  type.setValue(null);
                  name.setValue(null);
@@ -266,7 +275,9 @@ public class OwnerInController implements Initializable {
         unit_type.getItems().addAll(unit_types);
 
 
-        CaptionLabel.setStyle("-fx-background-color: fce28c;"+"-fx-border-color: ORANGE");
+        CaptionLabel.setStyle("-fx-background-color: fce28c;"+"-fx-border-color: ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        updateButton.setStyle("-fx-background-color: fce28c;"+"-fx-border-color: ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
+        HomeButton.setStyle("-fx-background-color: fce28c;"+"-fx-border-color: ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
         // ArrayList<product> MF=new ArrayList<>();
         /*MF.add(new product("Onion","Vegetable"));
         MF.add(new product("Tomato","Vegetable"));

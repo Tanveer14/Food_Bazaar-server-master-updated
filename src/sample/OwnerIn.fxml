@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="bgloginimage" stylesheets="@bglogin.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OwnerInController">
    <children>
-      <VBox layoutX="267.0" layoutY="115.0" prefHeight="400.0" prefWidth="300.0" spacing="15.0">
+      <VBox layoutX="268.0" layoutY="150.0" prefHeight="420.0" prefWidth="300.0" spacing="15.0">
          <children>
             <ComboBox fx:id="type" editable="true" onAction="#productTypeSelected" prefHeight="40.0" prefWidth="300.0" promptText="Product Type" />
             <ComboBox fx:id="name" disable="true" editable="true" onAction="#ItemTypeSelected" prefHeight="40.0" prefWidth="300.0" promptText="Product Name" />
@@ -28,14 +28,17 @@
             <TextField fx:id="quantity" prefHeight="40.0" prefWidth="300.0" promptText="Product Quantity" />
             <ComboBox fx:id="unit_type" editable="true" prefHeight="40.0" prefWidth="300.0" promptText="Product Unit Type" />
             <TextField fx:id="unit_price" prefHeight="40.0" prefWidth="300.0" promptText="Update Unit Price" />
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="33.0" prefWidth="73.0" text="Add">
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="33.0" prefWidth="73.0" text="Update" textFill="#e07a09">
                <VBox.margin>
                   <Insets left="110.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Agency FB" size="15.0" />
+               </font>
             </Button>
          </children>
       </VBox>
-      <Label fx:id="CaptionLabel" layoutX="288.0" layoutY="35.0" prefHeight="60.0" text="Add Your Products" textFill="#ffa500fc" AnchorPane.topAnchor="35.0">
+      <Label fx:id="CaptionLabel" layoutX="257.0" layoutY="34.0" prefHeight="60.0" text="Update Your Products" textFill="#ffa500fc" AnchorPane.topAnchor="34.0">
          <font>
             <Font name="Agency FB Bold" size="40.0" />
          </font>
@@ -43,11 +46,9 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </Label>
-      <Label fx:id="FootLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="515.0" prefHeight="49.0" prefWidth="327.0" textFill="#171616">
+      <Button fx:id="HomeButton" layoutX="697.0" layoutY="51.0" mnemonicParsing="false" onAction="#HomeButtonClicked" text="Home" textFill="#e07a09">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="HomeButton" layoutX="695.0" layoutY="64.0" mnemonicParsing="false" onAction="#HomeButtonClicked" text="Home" />
+            <Font name="Agency FB" size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
