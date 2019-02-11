@@ -72,6 +72,8 @@ class WorkerThread implements Runnable{
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             Object ob=is.readObject();
+            System.out.println(ob);
+            System.out.println(ob.getClass().getName());
             File file=new File("orderInfo.txt");
 
                     if(ob.getClass().getName().equals("java.lang.String"))
@@ -266,7 +268,7 @@ class WorkerThread implements Runnable{
                         ArrayList<Customer> CustomerArrayList=new ArrayList<>();
                         ArrayList<CustomerOrder> CustomerOrderArrayList=new ArrayList<>();
 
-
+                        System.out.println("ekhane ami");
 
                         Customer customer1=(Customer) ob;
                         CustomerOrder customerOrder=new CustomerOrder(customer1.getName(),customer1.getId());
