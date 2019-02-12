@@ -230,23 +230,45 @@ class WorkerThread implements Runnable{
                                 temp.setStatus("Invalid ID");
                             }else {
                                 Scanner scanner=new Scanner(new File("Done Orders.txt"));
-                                boolean gotIt=false;
+                                int gotIt = 0;
 
                                 String id=String.valueOf(CustomerId);
                                 System.out.println(id);
+
                                 while(scanner.hasNext()){
                                     String str=scanner.nextLine();
                                     System.out.println(str);
                                     if(str.equals(id)){
-                                        gotIt=true;
+                                        gotIt=1;//got itin done
                                         break;
                                     }
                                 }
-                                if (gotIt){
+
+                                scanner.close();
+
+//my part
+                                if(gotIt!=1)
+                                {
+                                    Scanner scanner1=new Scanner("cancelled orders.txt");
+                                    while(scanner1.hasNext()){
+                                        System.out.println("here\n");
+                                        String str=scanner1.nextLine();
+                                        System.out.println("id "+str);
+                                        if(str.equals(id)){
+                                            gotIt=2;
+                                            break;
+                                        }
+                                    }
+                                }
+
+
+
+                                if (gotIt==1){
                                     temp.setStatus("Cleared!");
                                 }
                                 else {
-                                    temp.setStatus("Pending");
+                                    if(gotIt==0)temp.setStatus("Pending");
+                                    if(gotIt==2)temp.setStatus("Cancelled");
 
                                 }
 

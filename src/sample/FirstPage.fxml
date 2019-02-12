@@ -24,5 +24,15 @@
             <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
+      <Label layoutX="41.0" layoutY="537.0" text="Total Earnings :">
+         <font>
+            <Font name="Agency FB Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="EarnLabel" layoutX="192.0" layoutY="538.0">
+         <font>
+            <Font name="Agency FB Bold" size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
