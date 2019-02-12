@@ -24,12 +24,12 @@
             <Font name="Agency FB Bold" size="15.0" />
          </font>
       </Button>
-      <Label layoutX="456.0" layoutY="541.0" text="Total Earnings :">
+      <Label layoutX="41.0" layoutY="537.0" text="Total Earnings :">
          <font>
             <Font name="Agency FB Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="EarnLabel" layoutX="607.0" layoutY="542.0">
+      <Label fx:id="EarnLabel" layoutX="192.0" layoutY="538.0">
          <font>
             <Font name="Agency FB Bold" size="26.0" />
          </font>
