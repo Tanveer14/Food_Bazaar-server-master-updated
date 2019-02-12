@@ -110,7 +110,7 @@ public class OwnerInController implements Initializable {
 
     public void updateButtonClicked()  {
         int valid=1;
-        boolean validQ=true;
+        boolean validQ=true,validQ2=true;
         try{
             String s=type.getSelectionModel().getSelectedItem();
             String t=name.getSelectionModel().getSelectedItem();
@@ -118,11 +118,12 @@ public class OwnerInController implements Initializable {
             Double price=Double.parseDouble(unit_price.getText());
             String type=unit_type.getSelectionModel().getSelectedItem();
             System.out.println(s+" "+t+" "+unit+" "+price+" "+" "+type);
-            if(s.equals(null)||t.equals(null)||type.equals(null)) {
+            if(s.equals(null)||t.equals(null)||type.equals(null)||price<=0) {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("No option can be empty !");
+                alert.setContentText("Invalid Input !");
                 alert.showAndWait();
+                validQ2=false;
                 valid=0;
             }
 
@@ -167,7 +168,14 @@ public class OwnerInController implements Initializable {
                 System.out.println("1");
              if (validQ)
              {
-                 if (k == 0) {
+                 if(Integer.parseInt(quantity.getText())<=0){
+                     validQ2=false;
+                     Alert alert=new Alert(Alert.AlertType.ERROR);
+                     alert.setHeaderText(null);
+                     alert.setContentText("Item quantity cannot be zero or negative .");
+                     alert.showAndWait();
+                 }
+                 if (k == 0&&Integer.parseInt(quantity.getText())>0) {
                      item.add(new product(t, s, Double.parseDouble(unit_price.getText()),
                              Integer.parseInt(quantity.getText()), unit_type.getSelectionModel().getSelectedItem()));
                  }
@@ -223,11 +231,14 @@ public class OwnerInController implements Initializable {
                  }
                  System.out.println("5");
                  //FootLabel.setText("Updated ! ! !");
+                 if(validQ2)
+                 {
+                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                     alert.setHeaderText(null);
+                     alert.setContentText("Stock Updated !");
+                     alert.showAndWait();
+                 }
 
-                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                 alert.setHeaderText(null);
-                 alert.setContentText("Stock Updated !");
-                 alert.showAndWait();
 
                  type.getSelectionModel().clearSelection();
                  unit_type.getSelectionModel().clearSelection();

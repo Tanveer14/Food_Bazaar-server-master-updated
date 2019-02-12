@@ -28,12 +28,12 @@
             <TextField fx:id="quantity" prefHeight="40.0" prefWidth="300.0" promptText="Product Quantity" />
             <ComboBox fx:id="unit_type" editable="true" prefHeight="40.0" prefWidth="300.0" promptText="Product Unit Type" />
             <TextField fx:id="unit_price" prefHeight="40.0" prefWidth="300.0" promptText="Update Unit Price" />
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="33.0" prefWidth="73.0" text="Update" textFill="#e07a09">
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="33.0" prefWidth="73.0" text="Update" textFill="ORANGE">
                <VBox.margin>
                   <Insets left="110.0" />
                </VBox.margin>
                <font>
-                  <Font name="Agency FB" size="15.0" />
+                  <Font name="Agency FB Bold" size="14.0" />
                </font>
             </Button>
          </children>
@@ -46,9 +46,9 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </Label>
-      <Button fx:id="HomeButton" layoutX="697.0" layoutY="51.0" mnemonicParsing="false" onAction="#HomeButtonClicked" text="Home" textFill="#e07a09">
+      <Button fx:id="HomeButton" layoutX="697.0" layoutY="51.0" mnemonicParsing="false" onAction="#HomeButtonClicked" text="Home" textFill="ORANGE">
          <font>
-            <Font name="Agency FB" size="14.0" />
+            <Font name="Agency FB Bold" size="14.0" />
          </font></Button>
    </children>
 </AnchorPane>
