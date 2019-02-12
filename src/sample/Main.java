@@ -349,6 +349,7 @@ class WorkerThread implements Runnable{
                                         int unit=Unit.intValue();
                                         temp.get(j).exclude_available_units(unit);
                                         if(temp.get(j).getAvailable_units()<=0){
+                                            Common.outOfStockFileUpdate(temp.get(j));
                                             temp.remove(j);
                                         }
                                         break;
@@ -385,7 +386,7 @@ class WorkerThread implements Runnable{
                             System.out.println("in here");
                         }
 
-                        //when the customer confirms order, then  the id increases by 1 and writes into file
+                         //when the customer confirms order, then  the id increases by 1 and writes into file
                         int customercount=customer1.getId()+1;
                         FileWriter fw=new FileWriter("Idcount.txt");
                         fw.write(String.valueOf(customercount));

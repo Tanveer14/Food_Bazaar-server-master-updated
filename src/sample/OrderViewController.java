@@ -68,12 +68,25 @@ public class OrderViewController implements Initializable {
                     }
                 }
                 if(found==0){
+                    System.out.println("found 0");
                     for(product ii:customer1.getProductList()){
                         System.out.println(ii);
                         if(ii.getName().equals(ee.getValue().get(i))){
                             System.out.println(ii);
                             ii.setAvailable_units(mapAvailableItems.get(ee.getValue().get(i)));
                             temp.add(ii);
+                            mapAvailableItems.remove(ii.getName());
+
+                            ArrayList<product> endproducts=new ArrayList<>();
+                            endproducts=Common.ownerFileInput(new File(ii.getType().toLowerCase()+"outOfStock.txt"));
+                            for(int k=0;k<endproducts.size();k++){
+                                if(endproducts.get(k).getName().equalsIgnoreCase(ii.getName())){
+                                    endproducts.remove(k);
+                                    Common.fileupdate(new File(ii.getType().toLowerCase()+"outOfStock.txt"),endproducts);
+                                    break;
+                                }
+                            }
+
                             break;
                         }
                     }
@@ -119,13 +132,13 @@ public class OrderViewController implements Initializable {
             String s=parts[1]+"\n";
             doneOrderWriter.write(s);
             doneOrderWriter.close();
-            
+
             int orderId = 0;
 
             try{
                 orderId = Integer.parseInt(parts[1]);
             }catch (Exception e){
-                
+
             }
             System.out.println("Order No " + orderId);
             ArrayList<Customer> CustomerArrayList = new ArrayList<>();
@@ -201,7 +214,7 @@ public class OrderViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       //networking needed to read from the arraylist of orders
+        //networking needed to read from the arraylist of orders
         GoBackButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
         NextOrderButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
         DoneButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
