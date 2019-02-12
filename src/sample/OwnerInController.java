@@ -131,7 +131,7 @@ public class OwnerInController implements Initializable {
                 }
              if (validQ)
              {
-                 if(Integer.parseInt(quantity.getText())<=0){
+                 if(k==0&&Integer.parseInt(quantity.getText())<=0){
                      validQ2=false;
                      Alert alert=new Alert(Alert.AlertType.ERROR);
                      alert.setHeaderText(null);
@@ -207,24 +207,23 @@ public class OwnerInController implements Initializable {
                      alert.setHeaderText(null);
                      alert.setContentText("Stock Updated !");
                      alert.showAndWait();
+
+                     type.getSelectionModel().clearSelection();
+                     unit_type.getSelectionModel().clearSelection();
+                     name.getSelectionModel().clearSelection();
+                     unit_price.setText("");
+                     quantity.setText("");
+                     ItemshowLabel.setText("");
+                     type.getItems().clear();
+                     name.getItems().clear();
+                     name.setDisable(true);
+                     type.getItems().addAll(types);
+                     type.setValue(null);
+                     name.setValue(null);
+                     unit_type.setValue(null);
+                     OutOfStockBox.getItems().clear();
+                     OutOfStockBox.setDisable(true);
                  }
-
-
-                 type.getSelectionModel().clearSelection();
-                 unit_type.getSelectionModel().clearSelection();
-                 name.getSelectionModel().clearSelection();
-                 unit_price.setText("");
-                 quantity.setText("");
-                 ItemshowLabel.setText("");
-                 type.getItems().clear();
-                 name.getItems().clear();
-                 name.setDisable(true);
-                 type.getItems().addAll(types);
-                 type.setValue(null);
-                 name.setValue(null);
-                 unit_type.setValue(null);
-                 OutOfStockBox.getItems().clear();
-                 OutOfStockBox.setDisable(true);
              }else {
 
              }
