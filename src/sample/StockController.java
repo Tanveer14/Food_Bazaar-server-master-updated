@@ -86,6 +86,8 @@ public class StockController implements Initializable {
                 System.out.println(io);
             }
             File deleteFile=new File(typeofDeleteType.toLowerCase()+".txt");
+            File deleteStockout=new File(typeofDeleteType.toLowerCase()+"outOfStock.txt");
+            deleteStockout.delete();
             deleteFile.delete();
             System.out.println("file deleted");
             String strtemp=types.get(0);
