@@ -50,5 +50,6 @@
          <font>
             <Font name="Agency FB Bold" size="14.0" />
          </font></Button>
+      <ComboBox fx:id="OutOfStockBox" disable="true" layoutX="610.0" layoutY="243.0" prefHeight="40.0" prefWidth="150.0" promptText="Out of Stock" />
    </children>
 </AnchorPane>

@@ -249,7 +249,22 @@ class WorkerThread implements Runnable{
 //my part
                                 if(gotIt!=1)
                                 {
-                                    Scanner scanner1=new Scanner("cancelled orders.txt");
+
+                                    File fileCancel=new File("cancelled orders.txt");
+                                    Scanner scannerc=new Scanner(fileCancel);
+                                    while (scannerc.hasNextLine())
+                                    {
+                                        String string=scannerc.nextLine();
+                                        System.out.println("id "+string);
+                                        if(string.equals(id)){
+                                            gotIt=2;
+                                            break;
+                                        }
+
+                                    }
+                                    scannerc.close();
+
+                                  /* Scanner scanner1=new Scanner("cancelled orders.txt");
                                     while(scanner1.hasNext()){
                                         System.out.println("here\n");
                                         String str=scanner1.nextLine();
@@ -258,7 +273,7 @@ class WorkerThread implements Runnable{
                                             gotIt=2;
                                             break;
                                         }
-                                    }
+                                    }*/
                                 }
 
 
@@ -373,6 +388,7 @@ class WorkerThread implements Runnable{
                                         int unit=Unit.intValue();
                                         temp.get(j).exclude_available_units(unit);
                                         if(temp.get(j).getAvailable_units()<=0){
+                                            Common.outOfStockFileUpdate(temp.get(j));
                                             temp.remove(j);
                                         }
                                         break;
@@ -409,7 +425,7 @@ class WorkerThread implements Runnable{
                             System.out.println("in here");
                         }
 
-                        //when the customer confirms order, then  the id increases by 1 and writes into file
+                         //when the customer confirms order, then  the id increases by 1 and writes into file
                         int customercount=customer1.getId()+1;
                         FileWriter fw=new FileWriter("Idcount.txt");
                         fw.write(String.valueOf(customercount));

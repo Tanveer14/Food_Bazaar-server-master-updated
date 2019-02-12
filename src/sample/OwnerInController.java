@@ -17,6 +17,7 @@ public class OwnerInController implements Initializable {
 
     @FXML public ComboBox<String> type,unit_type;
     @FXML public ComboBox<String> name;
+    @FXML private ComboBox<String> OutOfStockBox;
     @FXML public TextField quantity,unit_price;
     public Button updateButton,HomeButton;
     public Label FootLabel,ItemshowLabel,CaptionLabel;
@@ -24,6 +25,7 @@ public class OwnerInController implements Initializable {
     public static ArrayList<product> item=new ArrayList<>();
     private ArrayList<String> types=new ArrayList<>();
     private ArrayList<String>  unit_types=new ArrayList<>();
+    private ArrayList<product> outOfStockProduct=new ArrayList<>();
 
 
    /* @FXML public void nextpagebuttonClicked(ActionEvent event) throws Exception{
@@ -83,11 +85,20 @@ public class OwnerInController implements Initializable {
                 for (product i : item) {
                     name.getItems().add(i.getName());
                 }
+
+                File file2=new File(s.toLowerCase()+"outOfStock.txt");
+                outOfStockProduct=Common.ownerFileInput(file2);
+                OutOfStockBox.getItems().clear();
+                for(product i:outOfStockProduct){
+                    OutOfStockBox.getItems().add(i.getName());
+                }
             }
+
         }catch(Exception ex){
             ex.printStackTrace();
         }
         name.setDisable(false);
+        OutOfStockBox.setDisable(false);
         ItemshowLabel.setText("");
         name.setValue(null);
 
@@ -178,6 +189,17 @@ public class OwnerInController implements Initializable {
                  if (k == 0&&Integer.parseInt(quantity.getText())>0) {
                      item.add(new product(t, s, Double.parseDouble(unit_price.getText()),
                              Integer.parseInt(quantity.getText()), unit_type.getSelectionModel().getSelectedItem()));
+                     ArrayList<product> endproducts=new ArrayList<>();
+                     endproducts=Common.ownerFileInput(new File(s.toLowerCase()+"outOfStock.txt"));
+                     for(int i=0;i<endproducts.size();i++){
+                         if(endproducts.get(i).getName().equalsIgnoreCase(t)){
+                             endproducts.remove(i);
+                             Common.fileupdate(new File(s.toLowerCase()+"outOfStock.txt"),endproducts);
+                             break;
+                         }
+                     }
+
+
                  }
                  Common.fileupdate(new File(s.toLowerCase() + ".txt"), item);
                  int check = 0;
@@ -253,6 +275,8 @@ public class OwnerInController implements Initializable {
                  type.setValue(null);
                  name.setValue(null);
                  unit_type.setValue(null);
+                 OutOfStockBox.getItems().clear();
+                 OutOfStockBox.setDisable(true);
              }else {
 
              }

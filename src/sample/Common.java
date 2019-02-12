@@ -29,11 +29,52 @@ public class Common {
         window.show();
 
     }
-    public static void ButtonClicked(MouseEvent event, Parent page){
-        Scene View=new Scene(page);
-        Stage window=(Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(View);
-        window.show();
+
+    public static void outOfStockFileUpdate(product temp){
+        File file=new File(temp.getType().toLowerCase()+"outOfStock.txt");
+
+        FileInputStream fi;
+        ObjectInputStream ob;
+        ArrayList<product> type=new ArrayList<>();
+        try{
+            fi=new FileInputStream(file);
+            ob=new ObjectInputStream(fi);
+            try{
+                while(true){
+                    product f=(product)ob.readObject();
+                    type.add(f);
+                }
+            }catch(EOFException ex){
+
+            }
+            ob.close();
+            fi.close();
+        }catch(FileNotFoundException ex){
+            System.out.println("new type as file is not found");
+        }catch(IOException el){
+            System.out.println(el);
+        }catch(ClassNotFoundException cl){
+            System.out.println(cl);
+        }
+        product adding=new product(temp.getName(),temp.getType());
+        type.add(adding);
+        System.out.println(type);
+
+        try {
+            FileOutputStream fo = new FileOutputStream(file);
+            ObjectOutputStream oo = new ObjectOutputStream(fo);
+            for (product i : type) {
+                oo.writeObject(i);
+            }
+            oo.close();
+            fo.close();
+        }catch(FileNotFoundException ff){
+            System.out.println(ff);
+        }catch(IOException io){
+            System.out.println(io);
+        }
+
+
 
     }
 
