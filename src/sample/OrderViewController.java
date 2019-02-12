@@ -11,12 +11,11 @@ import javafx.scene.control.Label;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class OrderViewController implements Initializable {
     @FXML
-    Button DoneButton,NextOrderButton,PreviousOrderButton,GoBackButton;
+    Button DoneButton,NextOrderButton,PreviousOrderButton,GoBackButton,CancelButton;
     @FXML Label OrderLabel,Caption;
     ArrayList<Customer> OrderList;
     private int count;
@@ -25,7 +24,89 @@ public class OrderViewController implements Initializable {
     public OrderViewController() throws Exception {
     }
 
+    @FXML public void CancelButtonClicked() throws Exception{
+        Customer customer1=OrderList.get(count);
+        System.out.println(customer1);
+        System.out.println(customer1.getProductList());
+
+        Map<String,ArrayList<String>> mapFoodTypes=new HashMap<>();
+        Map<String,Double> mapAvailableItems=new HashMap<>();
+        for(int i=0;i<customer1.getProductList().size();i++){
+            String foodtype=customer1.getProductList().get(i).getType();
+            String foodname=customer1.getProductList().get(i).getName();
+            Double unit=customer1.getProductList().get(i).getUnit();
+            if(mapFoodTypes.get(foodtype)==null){
+                mapFoodTypes.put(foodtype,new ArrayList<String>());
+            }
+            mapFoodTypes.get(foodtype).add(foodname);
+            if(mapAvailableItems.get(foodname)==null){
+                mapAvailableItems.put(foodname,unit);
+            }
+            else{
+                unit+=mapAvailableItems.get(foodname);
+                mapAvailableItems.put(foodname,unit);
+            }
+        }
+
+        int found;
+
+        for(Map.Entry<String,ArrayList<String>> ee:mapFoodTypes.entrySet()){
+            System.out.println(ee.getKey()+" "+ee.getValue());
+            ArrayList<product> temp=Common.ownerFileInput(new File(ee.getKey().toLowerCase()+".txt"));
+            for(int i=0;i<ee.getValue().size();i++){
+                found=0;
+                if(!(mapAvailableItems.containsKey(ee.getValue().get(i)))) continue;
+                for(int j=0;j<temp.size();j++){
+                    if(ee.getValue().get(i).equals(temp.get(j).getName())){
+                        Double Unit=mapAvailableItems.get(temp.get(j).getName());
+                        System.out.println(Unit);
+                        mapAvailableItems.remove(temp.get(j).getName());
+                        int unit=Unit.intValue();
+                        temp.get(j).add_available_units(unit);
+                        found=1;
+                        break;
+                    }
+                }
+                if(found==0){
+                    for(product ii:customer1.getProductList()){
+                        System.out.println(ii);
+                        if(ii.getName().equals(ee.getValue().get(i))){
+                            System.out.println(ii);
+                            ii.setAvailable_units(mapAvailableItems.get(ee.getValue().get(i)));
+                            temp.add(ii);
+                            break;
+                        }
+                    }
+                }
+            }
+            Common.fileupdate(new File(ee.getKey().toLowerCase() + ".txt"),temp);
+        }
+
+
+
+    }
+
     @FXML public void DoneButtonClicked() throws Exception {
+
+        File countfile=new File("Earning.txt");
+        try {
+
+            Scanner scanner=new Scanner(countfile);
+            int earningCount=scanner.nextInt();
+            scanner.close();
+            System.out.println(earningCount);
+            earningCount+=OrderList.get(count).getTotalPrice();
+            FileWriter fw=new FileWriter(countfile);
+            fw.write(String.valueOf(earningCount));
+            fw.close();
+        } catch (IOException e) {
+
+            System.out.println("main333");
+            System.out.println(e);
+        }
+
+
+
         String labelText = OrderLabel.getText();
         String[] textParts = labelText.split("\n");
         System.out.println(textParts[0]);
@@ -87,7 +168,6 @@ public class OrderViewController implements Initializable {
         }
 
 
-
     }
 
 
@@ -127,6 +207,7 @@ public class OrderViewController implements Initializable {
         DoneButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
         PreviousOrderButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
         Caption.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;");
+        CancelButton.setStyle("-fx-background-color: #232020;"+"-fx-border-color:ORANGE;"+"-fx-background-radius: 3;"+"-fx-border-radius: 3;");
 
         if(file.length()==0){
             OrderLabel.setText("No Order Pending ! ! !");

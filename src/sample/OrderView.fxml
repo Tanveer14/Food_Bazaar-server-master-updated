@@ -15,7 +15,7 @@
             <Font name="Agency FB Bold" size="31.0" />
          </font>
       </Label>
-      <Button fx:id="DoneButton" layoutX="395.0" layoutY="539.0" mnemonicParsing="false" onAction="#DoneButtonClicked" text="Clear Order" textFill="ORANGE" />
+      <Button fx:id="DoneButton" layoutX="302.0" layoutY="539.0" mnemonicParsing="false" onAction="#DoneButtonClicked" text="Clear Order" textFill="ORANGE" />
       <Button fx:id="NextOrderButton" layoutX="680.0" layoutY="539.0" mnemonicParsing="false" onAction="#NextOrderButtonClicked" text="Next Order" textFill="ORANGE" />
       <Button fx:id="PreviousOrderButton" layoutX="39.0" layoutY="539.0" mnemonicParsing="false" onAction="#PreviousOrderButtonClicked" text="Previous Order" textFill="ORANGE" />
       <Button fx:id="GoBackButton" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#GoBackButtonClicked" text="Go Back" textFill="ORANGE" />
@@ -31,5 +31,6 @@
             </Label>
          </content>
       </ScrollPane>
+      <Button fx:id="CancelButton" layoutX="417.0" layoutY="539.0" mnemonicParsing="false" onAction="#CancelButtonClicked" text="Cancel Order" textFill="ORANGE" />
    </children>
 </AnchorPane>
