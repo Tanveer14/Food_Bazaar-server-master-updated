@@ -26,7 +26,7 @@ public class OrderViewController implements Initializable {
 
     @FXML public void CancelButtonClicked() throws Exception{
         Customer customer1=OrderList.get(count);
-        System.out.println(customer1);
+        int customerId=customer1.getId();
         System.out.println(customer1.getProductList());
 
         Map<String,ArrayList<String>> mapFoodTypes=new HashMap<>();
@@ -51,7 +51,6 @@ public class OrderViewController implements Initializable {
         int found;
 
         for(Map.Entry<String,ArrayList<String>> ee:mapFoodTypes.entrySet()){
-            System.out.println(ee.getKey()+" "+ee.getValue());
             ArrayList<product> temp=Common.ownerFileInput(new File(ee.getKey().toLowerCase()+".txt"));
             for(int i=0;i<ee.getValue().size();i++){
                 found=0;
@@ -59,7 +58,6 @@ public class OrderViewController implements Initializable {
                 for(int j=0;j<temp.size();j++){
                     if(ee.getValue().get(i).equals(temp.get(j).getName())){
                         Double Unit=mapAvailableItems.get(temp.get(j).getName());
-                        System.out.println(Unit);
                         mapAvailableItems.remove(temp.get(j).getName());
                         int unit=Unit.intValue();
                         temp.get(j).add_available_units(unit);
@@ -68,9 +66,7 @@ public class OrderViewController implements Initializable {
                     }
                 }
                 if(found==0){
-                    System.out.println("found 0");
                     for(product ii:customer1.getProductList()){
-                        System.out.println(ii);
                         if(ii.getName().equals(ee.getValue().get(i))){
                             System.out.println(ii);
                             ii.setAvailable_units(mapAvailableItems.get(ee.getValue().get(i)));
@@ -93,11 +89,70 @@ public class OrderViewController implements Initializable {
                 }
             }
             Common.fileupdate(new File(ee.getKey().toLowerCase() + ".txt"),temp);
+            File fileCancel=new File("cancelled orders.txt");
+
+
+            FileWriter fw=new FileWriter(fileCancel,true);
+            fw.write(customerId+"\n");
+            fw.close();
+
+
+            ArrayList<Customer> CustomerArrayList = new ArrayList<>();
+            FileInputStream fi = new FileInputStream(file);
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            while (true) {
+                try {
+                    Customer temp1 = (Customer) oi.readObject();
+                    if (temp1.getId() != customerId) CustomerArrayList.add(temp1);
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+            oi.close();
+            fi.close();
+
+            FileOutputStream fo = new FileOutputStream(file);
+            ObjectOutputStream Oo = new ObjectOutputStream(fo);
+
+            for (Customer c : CustomerArrayList) {
+                Oo.writeObject(c);
+            }
+
+            Oo.close();
+            fo.close();
+
+            OrderList = CustomerArrayList;
+        }
+        count--;
+        if(OrderList.size()!=0)
+        {
+            NextOrderButtonClicked();
+        }
+        else
+        {
+            DoneButton.setDisable(true);
+            NextOrderButton.setDisable(true);
+            PreviousOrderButton.setDisable(true);
+            OrderLabel.setText("No Order Pending ! ! !");
+        }
+           /* int i=0;
+            while (true){
+                try {
+                    fw.write(CancelledOrders.get(i)+"\n");
+                    i++;
+                }catch (Exception e)
+                {
+                    System.out.println("my prob o  "+ e);
+
+                    break;
+                }
+            }
+            */
+
         }
 
 
 
-    }
 
     @FXML public void DoneButtonClicked() throws Exception {
 
@@ -107,7 +162,6 @@ public class OrderViewController implements Initializable {
             Scanner scanner=new Scanner(countfile);
             int earningCount=scanner.nextInt();
             scanner.close();
-            System.out.println(earningCount);
             earningCount+=OrderList.get(count).getTotalPrice();
             FileWriter fw=new FileWriter(countfile);
             fw.write(String.valueOf(earningCount));
@@ -243,7 +297,6 @@ public class OrderViewController implements Initializable {
                         break;
                     }
                 }
-                System.out.println(CustomerArrayList);
                 oi.close();
                 OrderList=CustomerArrayList;
                 if(OrderList.size()!=0){

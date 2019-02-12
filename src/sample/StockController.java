@@ -45,7 +45,6 @@ public class StockController implements Initializable {
             for(int i=0;i<temp.size();i++){
                 if(temp.get(i).getName().equals(s)){
                     typeofDeleteItem=temp.get(i).getType();
-                    System.out.println(temp.get(i));
                     temp.remove(i);
                     break;
                 }

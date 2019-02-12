@@ -28,52 +28,6 @@ public class OwnerInController implements Initializable {
     private ArrayList<product> outOfStockProduct=new ArrayList<>();
 
 
-   /* @FXML public void nextpagebuttonClicked(ActionEvent event) throws Exception{
-        //Parent shoppage= FXMLLoader.load(getClass().getResource("ShopTypesView.fxml"));
-        //Common.ButtonClicked(event,shoppage);
-    }*/
-
-   /* public void MoreItemButtonClicked(){
-        try{
-            ArrayList<product> temp=null;
-            String s=type.getSelectionModel().getSelectedItem();
-            String t=name.getSelectionModel().getSelectedItem();
-            if(s.equalsIgnoreCase("Fruits")) {
-                temp = fruit_items;
-            }
-            else if(s.equalsIgnoreCase("Vegetables")){
-                temp=veg_items;
-            }
-            else if(s.equalsIgnoreCase("Meat and Fish")){
-                temp=mf_items;
-            }
-            else if(s.equalsIgnoreCase("Staples")){
-                temp=staple_items;
-            }
-            for(int i=0;i<temp.size();i++){
-                if(temp.get(i).getName().equalsIgnoreCase(t)){
-                    temp.get(i).setPrice(Integer.parseInt(unit_price.getText()));
-                    temp.get(i).setUnit_type(unit_type.getSelectionModel().getSelectedItem());
-                    temp.get(i).add_available_units(Integer.parseInt(quantity.getText()));
-                    System.out.println(temp.get(i));
-                    break;
-                }
-            }
-        type.getSelectionModel().clearSelection();
-        unit_type.getSelectionModel().clearSelection();
-        name.getSelectionModel().clearSelection();
-            unit_price.setText("");
-            quantity.setText("");
-        }catch (Exception ex)
-        {
-            FootLabel.setText("You've left an option empty!");
-        }
-
-    }*/
-
-
-
-
     public void productTypeSelected(){
         try{
             String s=type.getSelectionModel().getSelectedItem();
@@ -128,7 +82,6 @@ public class OwnerInController implements Initializable {
             Double unit=Double.parseDouble(quantity.getText());
             Double price=Double.parseDouble(unit_price.getText());
             String type=unit_type.getSelectionModel().getSelectedItem();
-            System.out.println(s+" "+t+" "+unit+" "+price+" "+" "+type);
             if(s.equals(null)||t.equals(null)||type.equals(null)||price<=0) {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
@@ -176,7 +129,6 @@ public class OwnerInController implements Initializable {
                         break;
                     }
                 }
-                System.out.println("1");
              if (validQ)
              {
                  if(Integer.parseInt(quantity.getText())<=0){
@@ -209,7 +161,6 @@ public class OwnerInController implements Initializable {
                          break;
                      }
                  }
-                 System.out.println("11111");
                  if (check == 0) {
                      types.add(s);
                      File typefile = new File("type list");
@@ -225,7 +176,6 @@ public class OwnerInController implements Initializable {
                          System.out.println(io);
                      }
                  }
-                 System.out.println("111");
                  int unitcheck = 0;
                  for (String i : unit_types) {
                      if (i.equals(unit_type.getSelectionModel().getSelectedItem())) {
@@ -233,7 +183,6 @@ public class OwnerInController implements Initializable {
                          break;
                      }
                  }
-                 System.out.println("11");
                  if (unitcheck == 0 && !(unit_type.getSelectionModel().getSelectedItem().equals(null))) {
                      unit_types.add(unit_type.getSelectionModel().getSelectedItem());
                      File typefile = new File("Unit type list");
@@ -251,7 +200,6 @@ public class OwnerInController implements Initializable {
                      unit_type.getItems().clear();
                      unit_type.getItems().addAll(unit_types);
                  }
-                 System.out.println("5");
                  //FootLabel.setText("Updated ! ! !");
                  if(validQ2)
                  {

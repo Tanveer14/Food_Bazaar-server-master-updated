@@ -41,7 +41,7 @@
                               <Font name="Agency FB Bold" size="35.0" />
                            </font>
                         </Label>
-                        <Button fx:id="goBackButton" layoutX="479.0" layoutY="9.0" mnemonicParsing="false" onAction="#goBackButtonClicked" styleClass="boxbg" stylesheets="@background.css" text="Go back" textFill="ORANGE">
+                        <Button fx:id="goBackButton" layoutX="479.0" layoutY="9.0" mnemonicParsing="false" onAction="#goBackButtonClicked" prefHeight="25.0" prefWidth="75.0" styleClass="boxbg" stylesheets="@background.css" text="Go back" textFill="ORANGE">
                            <font>
                               <Font name="Agency FB Bold" size="12.0" />
                            </font></Button>

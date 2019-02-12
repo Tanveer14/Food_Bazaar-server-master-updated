@@ -73,7 +73,6 @@ class WorkerThread implements Runnable{
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             Object ob=is.readObject();
             System.out.println(ob);
-            System.out.println(ob.getClass().getName());
             File file=new File("orderInfo.txt");
 
                     if(ob.getClass().getName().equals("java.lang.String"))
@@ -177,7 +176,6 @@ class WorkerThread implements Runnable{
                             ObjectOutputStream Oo2=new ObjectOutputStream(fo2);
                             for (CustomerOrder o:DoneOrders) {
                                 Oo2.writeObject(o);
-                                System.out.println(o);
                             }
                             Oo2.close();
                             fo2.close();
@@ -228,28 +226,52 @@ class WorkerThread implements Runnable{
                                 temp.setStatus("Invalid ID");
                             }else {
                                 Scanner scanner=new Scanner(new File("Done Orders.txt"));
-                                boolean gotIt=false;
+                                int gotIt = 0;
 
                                 String id=String.valueOf(CustomerId);
                                 System.out.println(id);
+
                                 while(scanner.hasNext()){
                                     String str=scanner.nextLine();
-                                    System.out.println(str);
                                     if(str.equals(id)){
-                                        gotIt=true;
+                                        gotIt=1;//got itin done
                                         break;
                                     }
                                 }
-                                if (gotIt){
+
+                                scanner.close();
+
+//my part
+                                if(gotIt!=1)
+                                {
+
+                                    File fileCancel=new File("cancelled orders.txt");
+                                    Scanner scannerc=new Scanner(fileCancel);
+                                    while (scannerc.hasNextLine())
+                                    {
+                                        String string=scannerc.nextLine();
+                                        if(string.equals(id)){
+                                            gotIt=2;
+                                            break;
+                                        }
+
+                                    }
+                                    scannerc.close();
+
+                                }
+
+
+
+                                if (gotIt==1){
                                     temp.setStatus("Cleared!");
                                 }
                                 else {
-                                    temp.setStatus("Pending");
+                                    if(gotIt==0)temp.setStatus("Pending");
+                                    if(gotIt==2)temp.setStatus("Cancelled");
 
                                 }
 
                             }
-                            System.out.println(temp);
                             os.writeObject(temp);
                         }
                         //another else if will be added for sending an order status

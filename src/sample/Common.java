@@ -58,7 +58,7 @@ public class Common {
         }
         product adding=new product(temp.getName(),temp.getType());
         type.add(adding);
-        System.out.println(type);
+
 
         try {
             FileOutputStream fo = new FileOutputStream(file);
@@ -190,41 +190,6 @@ public class Common {
         return choice;
     }
 
-   /* public static void TreeViewSelect(TreeView FoodTree)
-    {
-        if(FoodTree.getSelectionModel().getSelectedItem()=="Vegetables") FoodTree.setOnMouseClicked(e->{
-            Parent newsceneparent= FXMLLoader.load(getClass().getResource("LogInPage.fxml"));
-            ButtonClicked(e,);
-        });
-            if(FoodTree.getSelectionModel().getSelectedItem()=="Fish N Meat")
-                if(FoodTree.getSelectionModel().getSelectedItem()=="Fruits")
-                    if(FoodTree.getSelectionModel().getSelectedItem()=="Staples")
 
-    }*/
-
-
-    /*public static void AddToTable(Label label,Label TypeLabel,Label totalPriceLabel, ComboBox unit, TableView FoodTable, ObservableList<product> productList)
-    {
-
-
-        String labeltext=label.getText();
-        String []labelInfo=labeltext.split("\n");
-        product product=new product();
-        product.setType(TypeLabel.getText());
-        // Item i=new Item();
-        product.setName(labelInfo[0]);
-        String []lastLabel=labelInfo[1].split(" ");
-        String []lastlabel1=labelInfo[2].split(" ");
-        String unitText=(String)unit.getValue();
-        double unitVal=Double.parseDouble(unitText);
-        System.out.println(unitVal+" "+Double.parseDouble(lastLabel[0]));
-        product.setUnit(unitVal);
-        product.setPrice(Double.parseDouble(lastLabel[0])*product.getUnit());
-        product.setUnit_type(lastlabel1[1]);
-        CommonTypeViewController.totalPrice+=product.getPrice();
-        totalPriceLabel.setText(String.valueOf(CommonTypeViewController.totalPrice));
-        TableViewControl.addItem(FoodTable,product,productList);
-        unit.getSelectionModel().clearSelection();
-    }*/
 
 }
