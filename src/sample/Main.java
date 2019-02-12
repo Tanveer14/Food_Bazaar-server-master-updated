@@ -202,7 +202,6 @@ class WorkerThread implements Runnable{
                                {
                                    try {
                                        CustomerOrder co= (CustomerOrder) objin.readObject();
-                                       System.out.println(co.getId());
                                        if(co.getId()==CustomerId){
                                            OrderExists=true;
                                            System.out.println("got "+co.toString());
@@ -268,7 +267,6 @@ class WorkerThread implements Runnable{
                         ArrayList<Customer> CustomerArrayList=new ArrayList<>();
                         ArrayList<CustomerOrder> CustomerOrderArrayList=new ArrayList<>();
 
-                        System.out.println("ekhane ami");
 
                         Customer customer1=(Customer) ob;
                         CustomerOrder customerOrder=new CustomerOrder(customer1.getName(),customer1.getId());
@@ -283,7 +281,6 @@ class WorkerThread implements Runnable{
                             while (true) {
                                 try {
                                     Customer temp = (Customer) oin.readObject();
-                                    System.out.println(temp);
                                     CustomerArrayList.add(temp);
                                 }catch (Exception e)
                                 {
@@ -320,7 +317,6 @@ class WorkerThread implements Runnable{
                         CustomerArrayList.add(customer1);
                         CustomerOrderArrayList.add(customerOrder);
 
-                        System.out.println("it is    "+CustomerArrayList);
 
 
                         Map<String,ArrayList<String>> mapFoodTypes=new HashMap<>();
