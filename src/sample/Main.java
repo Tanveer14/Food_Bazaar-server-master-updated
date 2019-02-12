@@ -37,6 +37,7 @@ public class Main extends Application {
                  while(true) {
                      try {
                          Socket connection = ss.accept();
+                         System.out.println("accepted");
                          WorkerThread wt = new WorkerThread(connection);
                          Thread t = new Thread(wt);
                          t.start();
@@ -69,6 +70,7 @@ class WorkerThread implements Runnable{
 
 
         try {
+            System.out.println("here");
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             Object ob=is.readObject();
